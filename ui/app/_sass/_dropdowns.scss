@@ -1,0 +1,116 @@
+.dropdown-menu {
+  padding: 0;
+  li.nav-header {
+	cursor: default;
+	font-size: 12px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #b7b7b7;
+	text-shadow: 0 0 3px #fff;
+	background-color: #f1f1f1;
+	padding: 3px;
+  }
+  .dropdown-menu-sub {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	> li > a {
+	  display: block;
+	  padding: 3px 20px;
+	  clear: both;
+	  font-weight: normal;
+	  line-height: $line-height-base;
+	  color: $dropdown-link-color;
+	  white-space: nowrap; // prevent links from randomly breaking onto new lines
+	}
+  }
+
+  .dropdown-menu-sub > li > a {
+	&:hover,
+	&:focus {
+	  text-decoration: none;
+	  color: $dropdown-link-hover-color;
+	  background-color: $dropdown-link-hover-bg;
+	}
+  }
+
+  // Active state
+  .dropdown-menu-sub > .active > a {
+	&,
+	&:hover,
+	&:focus {
+	  color: $dropdown-link-active-color;
+	  text-decoration: none;
+	  outline: 0;
+	  background-color: $dropdown-link-active-bg;
+	}
+  }
+
+  // Disabled state
+  //
+  // Gray out text and ensure the hover/focus state remains gray
+
+  .dropdown-menu-sub > .disabled > a {
+	&,
+	&:hover,
+	&:focus {
+	  color: $dropdown-link-disabled-color;
+	}
+
+	// Nuke hover/focus effects
+	&:hover,
+	&:focus {
+	  text-decoration: none;
+	  background-color: transparent;
+	  background-image: none; // Remove CSS gradient
+	  @include reset-filter;
+	  cursor: $cursor-disabled;
+	}
+  }
+
+
+
+
+
+
+
+
+  .checkbox {
+	margin: 0;
+	label {
+	  display: block;
+	  min-height: 0;
+	  padding: 3px 20px 3px 5px;
+	  margin-left: 5px;
+
+	}
+	&:hover {
+	  text-decoration: none;
+	  color: $dropdown-link-hover-color;
+	  background-color: $dropdown-link-hover-bg;
+	}
+  }
+
+
+  .dropdown-menu-save-btn {
+	&.hidden {
+	  display:none;
+	}
+
+  }
+
+  &.icons {
+	li {
+
+	  a {
+		i.fa {
+		  width:20px;
+		  text-align: center;
+		  margin-left:-15px;
+		}
+	  }
+	}
+
+  }
+
+}

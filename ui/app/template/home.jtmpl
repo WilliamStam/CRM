@@ -1,0 +1,19 @@
+{% import "_macros.twig" as macros %}
+
+<script type="text/x-jqote-template" id="template-content">
+	<![CDATA[
+
+	<div id="toolbar" class="" style="top: 47px;">
+		<div class="container small-header">
+			<div class="panel">
+				<div class="panel-body">
+					woof
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	]]>
+</script>

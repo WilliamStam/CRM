@@ -1,0 +1,48 @@
+@import "./vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "./vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap/mixins";
+
+
+
+@import "../../_sass/_variables";
+
+
+@import "stack-tables.scss";
+@import "daterangepicker.scss";
+@import "awesome-bootstrap-checkbox.scss";
+
+
+@import "buttons.scss";
+@import "lists.scss";
+
+
+@import "bootstrap-datetimepicker.scss";
+@import "records.scss";
+//@import "ckeditor.scss";
+
+
+
+@import "dropdowns.scss";
+@import "pagination.scss";
+@import "margins.scss";
+@import "modals.scss";
+
+@import "breadcrumbs.scss";
+@import "panels.scss";
+@import "toolbar.scss";
+
+@import "loadingmask.scss";
+@import "scrollbars.scss";
+@import "toastr.scss";
+
+@import "offcanvas.scss";
+
+@import "navbar.scss";
+@import "page.scss";
+@import "searchbox.scss";
+
+.popover{
+  max-width: 100%; /* Max Width of the popover (depending on the container!) */
+}
+.font-small {
+  font-size: small;
+}

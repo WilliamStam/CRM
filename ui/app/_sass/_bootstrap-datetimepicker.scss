@@ -1,0 +1,92 @@
+@import "./vendor/twbs/bootstrap-sass/assets/stylesheets/bootstrap/variables";
+@import "./vendor/components/bootstrap-datetimepicker/src/sass/bootstrap-datetimepicker-build.scss";
+
+.bootstrap-datetimepicker-widget {
+  table td.day {
+	width: 30px;
+	border: 1px solid $border-color;
+  }
+  .timepicker-hour {
+	border: 1px solid $border-color;
+  }
+  .timepicker-minute {
+	border: 1px solid $border-color;
+  }
+}
+
+.bootstrap-datetimepicker-widget table {
+  td.old {
+	color: #ccc;
+  }
+  td.new {
+	color: #ccc;
+  }
+  td.disabled {
+	background:
+			/* On "top" */
+			repeating-linear-gradient(
+							45deg,
+							transparent,
+							transparent 5px,
+							rgba(241, 241, 241,0.4) 5px,
+							rgba(241, 241, 241,0.4) 10px
+			),
+			  /* on "bottom" */
+			linear-gradient(
+							to bottom,
+							rgba(225, 225, 225, 0.4),
+							rgba(225, 225, 225, 0.4)
+			);
+  }
+
+  td.active {
+	background-color: $color-navy-blue;
+	&:hover {
+	  background-color: lighten($color-navy-blue, 10%);
+	}
+  }
+
+}
+
+.bootstrap-datetimepicker-widget table th {
+  width: 30px;
+}
+
+.table-condensed > thead > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > th, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > th, .table-condensed > tfoot > tr > td {
+  padding: 5px 10px;
+}
+
+.bootstrap-datetimepicker-widget {
+  width: 100%;
+  .datepicker {
+	width: 60%;
+
+	.day {
+	  .active {
+		background-color: $color-navy-blue;
+	  }
+	}
+  }
+  .timepicker {
+	padding-top: 20px;
+	width: 40%;
+
+  }
+  @media (max-width: $screen-xs-max) {
+	.datepicker {
+	  width: 100%;
+	}
+	.timepicker {
+	  padding-top: 20px;
+	  width: 100%;
+
+	}
+
+  }
+
+}
+
+.bootstrap-datetimepicker-widget table td.disabled, .bootstrap-datetimepicker-widget table td.disabled:hover {
+  color: #ccc;
+}
+

@@ -1,0 +1,141 @@
+<script type="text/x-jqote-template" id="template-timers-tr">
+	<![CDATA[
+
+	<% if(this.msg!="Page Execute: "){ %>
+	<tr>
+		<td><%= this.msg %>
+			<div class="s g"><%= this.arg %></div>
+		</td>
+		<% if (this.tim > 0.5) { %>
+		<td style="color: red;"><%= this.tim %></td>
+		<% } else { %>
+		<td><%= this.tim %></td>
+		<% } %>
+
+	</tr>
+	<% } %>
+
+	]]>
+</script>
+<script type="text/x-jqote-template" id="template-timers-tr-models">
+	<![CDATA[
+
+	<tr style="background-color:#f1f1f1; ">
+		<td><%= this.k %></td>
+		<td style="width: 90px; <% if ( this.t > 0.5 ) { %>color: red;<% } %>"><%= this.t %></td>
+	</tr>
+	<% for(var i in this.m) { %>
+	<tr class="btn-row-details ">
+		<td class="s <% if (this.m[i].c > 1) { %>text-danger<% } %>">
+			<%= this.m[i].c %>&nbsp;|&nbsp;<%= this.m[i].l %>
+		</td>
+		<td class="s <% if (this.m[i].t > 0.5) { %>text-danger<% } %>">
+			<%= this.m[i].t %>
+		</td>
+	</tr>
+	<tr class="row-details">
+		<td colspan="2">
+			<% for(var g in this.m[i].m) { %>
+			<div class="clearfix"></div>
+			<div class="pull-right f10" style="<% if ( this.m[i].m[g].tim > 0.5 ) { %>color: red;<% } %>"><%=
+				this.m[i].m[g].tim %>
+			</div>
+			<div class="dg f10">
+				<div class="">
+					<%= this.m[i].m[g].arg.file %> : <%= this.m[i].m[g].arg.line %><br>
+					<em><%= this.m[i].m[g].arg.class %>-><%= this.m[i].m[g].arg.function %>(<%= this.m[i].m[g].arg.args
+						%>)</em>
+				</div>
+				<% if (this.m[i].m[g].bt) { %>
+				<div style="margin-left:30px;" class="g f9 border-top">
+
+					<%= this.m[i].m[g].bt.file %> : <%= this.m[i].m[g].bt.line %><br>
+					<em style="margin-left: 10px;"><%= this.m[i].m[g].bt.class %>-><%= this.m[i].m[g].bt.function %>(<%=
+						this.m[i].m[g].bt.args %>)</em>
+
+
+				</div>
+				<% } %>
+
+			</div>
+			<% } %>
+		</td>
+	</tr>
+
+	<% } %>
+
+
+	]]>
+</script>
+<script type="text/x-jqote-template" id="template-pagination">
+	<![CDATA[
+
+
+	<ul class="pagination pagination-sm pagination-justified" style="margin:0;">
+		<% if(!this.hide_fast_jump){ %>
+		<li data-page="1"
+		<% if ('1'==this.current) { %>class="disabled"<% } %>>
+		<a href="#">«</a>
+		</li>
+		<% } %>
+		<li data-page="<%= this.previous %>"
+		<% if ('1'==this.current) { %>class="disabled"<% } %>>
+		<a href="#"><</a>
+		</li>
+		<% for(var i in this.pages) { %>
+		<li data-page="<%= this.pages[i].p %>"
+				class="<% if (this.current==this.pages[i].p) { %>active<% } %>">
+			<a href="#"><%= this.pages[i].p %></a>
+		</li>
+		<% } %>
+		<li data-page="<%= this.next %>"
+		<% if (this.last==this.current) { %>class="disabled"<% } %>>
+		<a href="#">></a>
+		</li>
+		<% if(!this.hide_fast_jump){ %>
+		<li data-page="<%= this.last %>"
+		<% if (this.last==this.current) { %>class="disabled"<% } %>>
+		<a href="#">»</a>
+		</li>
+		<% } %>
+	</ul>
+
+
+	]]>
+</script>
+<script type="text/x-jqote-template" id="template-pagination-justified">
+	<![CDATA[
+
+
+	<div class="pagination pagination-sm pagination-justified" style="margin:0;">
+		<% if(!this.hide_fast_jump){ %>
+
+		<a href="#" data-page="1" <% if ('1'==this.current) { %>class="disabled"<% } %>>
+			«
+		</a>
+
+		<% } %>
+
+		<a href="#" data-page="<%= this.previous %>" <% if ('1'==this.current) { %>class="disabled"<% } %>><</a>
+
+		<% for(var i in this.pages) { %>
+
+			<a href="#" data-page="<%= this.pages[i].p %>"
+					class="<% if (this.current==this.pages[i].p) { %>active<% } %>"><%= this.pages[i].p %></a>
+
+		<% } %>
+
+		<a href="#" data-page="<%= this.next %>" <% if (this.last==this.current) { %>class="disabled"<% } %>>></a>
+
+		<% if(!this.hide_fast_jump){ %>
+
+		<a href="#" data-page="<%= this.last %>"
+		<% if (this.last==this.current) { %>class="disabled"<% } %>>»</a>
+
+		<% } %>
+	</div>
+
+
+	]]>
+</script>
+

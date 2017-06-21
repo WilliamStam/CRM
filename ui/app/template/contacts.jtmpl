@@ -1,0 +1,160 @@
+{% import "_macros.twig" as macros %}
+<script type="text/x-jqote-template" id="template-content">
+	<![CDATA[
+	<div id="toolbar" class="" style="top: 47px;">
+		<div class="container small-header">
+			<div class="panel">
+				<div class="panel-body">
+
+
+					<div class="col-sm-3">
+						<table style="width:100%;">
+							<tr>
+								<td style="padding-right:10px;">
+									<a href="#" class="btn btn-primary2 btn-form-interaction" data-id="">
+										<i class="fa fa-plus"></i></a>
+								</td>
+								<td>
+									<div class="btn-group btn-group-justified ">
+
+										<a href="#" class="btn <% if(this.options.type=='1'){ %>btn-primary2<% } else { %>btn-default<% } %> btn-filter-type" data-value="1">Individual</a>
+										<a href="#" class="btn <% if(this.options.type=='2'){ %>btn-primary2<% } else { %>btn-default<% } %> btn-filter-type" data-value="2">Company</a>
+
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+
+					<div class="col-sm-5">
+
+
+						<form id="search-form" role="search">
+							<div class="input-group  " style="width:100%">
+								<input type="text" class="form-control" placeholder="Search" name="search" id="search" value="<%= this.options.search||'' %>">
+								<div class="input-group-btn">
+									<% if(this.options.search){ %>
+									<button class="btn btn-danger" type="reset"><i class="fa fa-close"></i></button>
+									<% } %>
+									<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+					<div class="col-sm-4">
+						{{ macros.toolbar_settings("btn-primary2") }}
+						<div style="margin-right:90px;">
+
+						</div>
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<table class="table table-condensed table-bordered records stack-table" id="content-table">
+		<% for(var g in this.records){ %>
+		<thead>
+		<% if(this.options.groupby != "none"){ %>
+		<tr class="table-heading-row">
+			<th colspan="<%= Object.keys(this.options.columns).length %>">
+				<h3>
+					<%= this.records[g].heading||'' %>
+					<small class="pull-right"><%= this.records[g].count||'' %></small>
+
+				</h3>
+			</th>
+		</tr>
+		<% } %>
+
+
+		<tr class="table-columns-row">
+			<% for (var key in this.options.columns){ %>
+			<th class="<% if(this.options.columns[key].o){ %>options-order <% } %><% if(this.options.order==key){ %>active<% } %>" data-value="<%= key %>" data-dir="<%= this.options.order_dir %>">
+				<% if(this.options.order==key){ %>
+				<% if(this.options.order_dir=="DESC"){ %>
+				<i class="fa fa-sort-<%= this.options.columns[key].o %>-desc"></i>
+				<% } else { %>
+				<i class="fa fa-sort-<%= this.options.columns[key].o %>-asc"></i>
+				<% } %>
+				<% } %>
+				<%= this.options.columns[key].l %>
+
+			</th>
+			<% } %>
+		</tr>
+		</thead>
+		<tbody>
+
+		<% for (var i in this.records[g].records){ %>
+		<tr class="record record-<%= this.type %>" data-id="<%= this.records[g].records[i].ID %>">
+			<% for (var key in this.options.columns){ %>
+			<td>
+				<% if(this.options.columns[key].lookup==1){ %>
+				<% var field_value = []; %>
+					<% for (var lookupcol in this.records[g].records[i][key]){ field_value.push(this.records[g].records[i][key][lookupcol].value); } field_value = field_value.join("{{ _cfg['field_lookup_separator']['list'] }}"); %>
+				<%= field_value %>
+
+				<% } else { %>
+					<%= this.records[g].records[i][key]||'' %>
+				<% } %>
+
+			</td>
+			<% } %>
+		</tr>
+		<% } %>
+
+
+		</tbody>
+
+		<% } %>
+
+	</table>
+	<% if (this.pagination){ %>
+	<div style="height:30px;"></div>
+	<nav aria-label="Page navigation" class="navbar-fixed-bottom" style="margin:0;z-index:2;">
+
+
+		<div class="container">
+			<div class="row">
+				<nav id="pagination-area">
+					<div class="btn-group pagination btn-group-sm btn-group-justified" style="margin:3px 0;">
+
+						<!--<a href="#" data-page="1" class="btn btn-default faded <% if ('1'==this.pagination.current) { %>disabled<% } %>"> <i class="fa fa-arrow-circle-left"></i> </a>-->
+						<a href="#" data-page="<%= this.pagination.previous %>" class="btn btn-primary2 faded <% if ('1'==this.pagination.current) { %>disabled<% } %>">
+							<i class="fa fa-chevron-circle-left"></i></a>
+
+						<% for(var i in this.pagination.pages) { %>
+
+						<a href="#" data-page="<%= this.pagination.pages[i].p %>" class="btn <% if (this.pagination.current==this.pagination.pages[i].p) { %>btn-primary2<% } else { %>btn-default<% } %>"><%= this.pagination.pages[i].p %></a>
+
+						<% } %>
+
+						<a href="#" data-page="<%= this.pagination.next %>" class="btn btn-primary2 faded <% if (this.pagination.last==this.current) { %>disabled<% } %>">
+							<i class="fa fa-chevron-circle-right"></i></a>
+
+
+						<!--<a href="#" data-page="<%= this.pagination.last %>" class="btn btn-default faded <% if (this.pagination.last==this.current) { %>disabled<% } %>"><i class="fa fa-arrow-circle-right"></i></a>-->
+
+
+					</div>
+				</nav>
+			</div>
+
+		</div>
+
+
+	</nav>
+	<% } %>
+
+
+	]]>
+</script>

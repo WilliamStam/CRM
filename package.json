@@ -1,0 +1,28 @@
+{
+  "name": "Ad-Server",
+  "version": "3.0.0",
+  "private": true,
+  "minimum-stability": "dev",
+  "devDependencies": {
+
+
+    "gulp": "github:gulpjs/gulp#4.0",
+    "gulp-autoprefixer": "latest",
+    "gulp-clean-css": "latest",
+    "gulp-composer": "latest",
+    "gulp-concat": "latest",
+    "gulp-duration": "latest",
+    "gulp-git": "latest",
+    "gulp-rename": "latest",
+    "gulp-sass": "latest",
+    "gulp-sourcemaps": "latest",
+    "gulp-total-task-time": "latest",
+    "gulp-uglify": "latest",
+
+
+    "merge-stream": "latest",
+    "run-sequence": "latest",
+
+    "time-require": "latest"
+  }
+}

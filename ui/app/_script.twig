@@ -1,0 +1,16 @@
+{% if data['site'] and data['module'] %}{{ data['before']|raw }}<script type="text/javascript">
+!(function (key, module, options, uniqueid) {
+	var scriptNode = document.createElement('script');
+	var PARAMS = arguments;
+	scriptNode.onload = function () {
+		if (typeof ADSSCRIPT['ad' + uniqueid] == "function") {
+			ADSSCRIPT['ad' + uniqueid].apply(this, PARAMS);
+		}
+	};
+	scriptNode.src = "{{ _domain }}/" + key + "/" + module + ".js?u=" + uniqueid + "&" + Object.keys(options).map(function (k) {
+			if (typeof(options[k]) !== "function") return encodeURIComponent(k) + "=" + encodeURIComponent(options[k]);
+		}).join('&');
+	scriptNode.async = true;
+	document.scripts[uniqueid - 1].parentNode.appendChild(scriptNode);
+})("{{ data['site']|raw }}", {% if data['module_'] %}{{ data['module_']|raw }}{% else %}"{{ data['module']|raw }}"{% endif %}, { {{ options|raw }} }, document.scripts.length);
+</script>{{ data['after']|raw }}{% endif %}

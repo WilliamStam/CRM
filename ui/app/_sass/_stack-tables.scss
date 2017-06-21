@@ -1,0 +1,159 @@
+
+.stack-table {
+  &.table-bordered {
+	border:none;
+	thead {
+	  border-left:none;
+	  border-right:none;
+	  tr:not(.table-columns-row){
+		th:first-child {
+		  border-left:none;
+		}
+		th:last-child {
+		  border-right:none;
+		}
+	  }
+
+	}
+  }
+  thead {
+
+	.table-heading-row {
+	  h3 {
+		margin-top:30px;
+		margin-bottom:0px;
+	  }
+	}
+
+
+	&:first-child {
+	  .table-heading-row {
+		h3 {
+		  margin-top:20px;
+		}
+	  }
+	}
+
+	.table-columns-row {
+	  background: #fff;
+	  th {
+		font-weight: $btn-font-weight;
+		text-align: center;
+		vertical-align: middle;
+		touch-action: manipulation;
+		cursor: pointer;
+		background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
+		border: 1px solid transparent;
+		white-space: nowrap;
+
+
+
+
+
+		@include user-select(none);
+		@include button-variant($btn-default-color, $btn-default-bg, $border-color);
+		@include button-size($padding-xs-vertical, $padding-xs-horizontal, $font-size-small, $line-height-small, $btn-border-radius-small);
+		@include border-left-radius(0);
+		@include border-right-radius(0);
+		margin-left: -1px;
+		color: #a6a6a6;
+		&.active {
+		  color: #a1a1a1;
+		  border-color: $border-color;
+		  font-weight: bold;
+		  font-style: italic;
+		  background-color: transparent;
+		}
+		&:hover {
+		  border-color: $border-color;
+		}
+	  }
+
+
+	}
+
+  }
+  tbody {
+	td, th {
+	  .mobile-label {
+		display: none;
+	  }
+	  .mobile-value {
+		display: block;
+	  }
+	}
+	background: #fff;
+  }
+
+}
+
+@media (max-width: $screen-xs-max) {
+  .stack-table {
+	thead {
+	  .table-columns-row {
+
+
+		display: table;
+		width: 100%;
+		table-layout: fixed;
+		border-collapse: separate;
+		padding-left:1px;
+		padding-right:1px;
+
+
+		th {
+		  margin-bottom: 0; // For input.btn
+		  float: none;
+		  display: table-cell;
+		  width: 1%;
+		  margin-left: -1px;
+
+		}
+
+	  }
+
+
+
+
+	  .table-heading-row {
+		th,td {
+		  display: block;
+		}
+
+	  }
+	}
+	tbody {
+	  tr {
+		display: block;
+		margin-bottom:10px;
+
+		td, th {
+		  text-align: left;
+		  display: block;
+		  border:none;
+
+		  .mobile-label {
+			display: inline-block;
+			width: 30%;
+			text-align: right;
+			padding-right:10px;
+			font-weight: bold;
+			font-style: italic;
+
+		  }
+		  .mobile-value {
+			display: inline-block;
+			max-width: 70%;
+		  }
+		}
+	  }
+
+	}
+
+  }
+
+
+
+}
+
+

@@ -1,0 +1,18 @@
+<div class="panel {{ settings['color'] }}">
+	{% if settings['parts']['heading']=='1' %}
+	<div class="panel-heading">
+		<div class="content-area"></div>
+	</div>
+	{% endif %}
+	{% if settings['parts']['body']=='1' %}
+	<div class="panel-body">
+		<div class="content-area"></div>
+
+	</div>
+	{% endif %}
+	{% if settings['parts']['footer']=='1' %}
+	<div class="panel-footer">
+		<div class="content-area"></div>
+	</div>
+	{% endif %}
+</div>

@@ -1,0 +1,202 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0" id="main-nav-bar" >
+	<div class="color-line"></div>
+	<div class="container">
+		<div class="navbar-header" id="navbar-header" >
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-bar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/app"><i class="fa fa-dashboard"></i> CRM</a>
+		</div>
+		<!-- /.navbar-header -->
+		
+		
+		<div id="menu-bar"  class="collapse navbar-collapse">
+			<ul class="nav navbar-nav ">
+				
+				<li class="divider-vertical"></li>
+
+				<li class="dropdown">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="fa fa-plus "></i> <span class="visible-xs-inline">New Record</span>
+					</a>
+					<ul class="dropdown-menu icons">
+						<li class="nav-header">Add New...</li>
+						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-interaction " data-id=""> <i class="fa fa-handshake-o text-blue"></i> Interaction</a></li>
+						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-companies" data-id=""><i class="fa fa-address-book-o text-violet"></i>  Contact</a></li>
+						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-contacts" data-id=""><i class="fa fa-tasks text-red"></i>  Tasks</a></li>
+						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-leads" data-id=""><i class="fa fa-exclamation text-orange"></i>  Lead</a></li>
+						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-leads" data-id=""><i class="fa fa-check-square-o text-green"></i>  Objective</a></li>
+
+
+
+					</ul>
+				</li>
+				<li class="divider-vertical"></li>
+				<li>
+					<a href="/app/interactions" {% if page.section =='interactions' and page.sub_section == 'list' %}class="active"{% endif %}>
+						<i class="fa fa-handshake-o text-info"></i>
+						<span class="hidden-sm">Interactions</span>
+					</a>
+				</li>
+				<li>
+					<a href="/app/contacts" {% if page.section =='contacts' %}class="active"{% endif %}>
+						<i class="fa fa-address-book-o text-violet"></i>
+						<span class="hidden-sm">Contacts</span>
+					</a>
+				</li>
+				<li>
+					<a href="/app/tasks" {% if page.section =='tasks' and page.sub_section == 'list' %}class="active"{% endif %}>
+						<i class="fa fa-tasks text-red"></i>
+						<span class="hidden-sm">Tasks</span>
+					</a>
+				</li>
+				<li>
+					<a href="/app/leads" {% if page.section =='leads' and page.sub_section == 'list' %}class="active"{% endif %}>
+						<i class="fa fa-exclamation text-orange"></i>
+						<span class="hidden-sm">Leads</span>
+					</a>
+				</li>
+				<li>
+					<a href="/app/objectives" {% if page.section =='objectives' and page.sub_section == 'list' %}class="active"{% endif %}>
+						<i class="fa fa-check-square-o text-green"></i>
+						<span class="hidden-sm">Objectives</span>
+					</a>
+				</li>
+
+			</ul>
+			
+			
+			<ul class="nav navbar-nav navbar-right">
+
+				<li class="divider-vertical"></li>
+
+
+				{% if _user['companies']|length>1 %}
+					<li class="dropdown" id="company-dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ _user['company']['company'] }} <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							{% for row in _user['companies'] %}
+								<li {% if row['ID'] == _user['company']['ID'] %}class="active"{% endif %}><a href="?cID={{ row['ID'] }}">{{ row['company'] }}</a></li>
+							{% endfor %}
+						</ul>
+					</li>
+				{% else %}
+					<li id="company-dropdown">
+						<p class="navbar-text">{{ _user['company']['company'] }}</p>
+					</li>
+				{% endif %}
+				
+
+				
+				<!-- /.dropdown -->
+				<li class="dropdown {% if page.section=="reports" %}active{% endif %} ">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="fa fa-line-chart "></i> <span class="visible-xs-inline">Reports</span> <i class="fa fa-caret-down"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li class="nav-header">Reports</li>
+						<li {% if page.sub_section =='companies' %}class="active"{% endif %}><a href="/app/reports/companies"> Companies</a></li>
+						<li {% if page.sub_section =='contacts' %}class="active"{% endif %}><a href="/app/reports/contacts"> Contacts</a></li>
+						<li {% if page.sub_section =='staff' %}class="active"{% endif %}><a href="/app/reports/staff"> Staff</a></li>
+						<li {% if page.sub_section =='leads' %}class="active"{% endif %}><a href="/app/reports/leads"> Leads</a></li>
+						<li {% if page.sub_section =='interactions' %}class="active"{% endif %}><a href="/app/reports/interactions"> Interactions</a></li>
+
+
+					</ul>
+				</li>
+				<li class="dropdown {% if page.section=="settings" %}active{% endif %} ">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+						<i class="fa fa-cogs "></i> <span class="visible-xs-inline">Settings</span> <i class="fa fa-caret-down"></i>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-right">
+						<li class="nav-header">Interactions</li>
+
+
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/types/interactions" >
+								Types
+							</a>
+						</li>
+						<li class="nav-header">Contacts - Companies</li>
+
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/" >
+								Fields
+							</a>
+						</li>
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/types/relationship" >
+								Relationships
+							</a>
+						</li>
+						<li class="nav-header">Contacts - Individuals</li>
+
+						<li {% if page.sub_section =='individuals_fields' %}class="active"{% endif %}>
+							<a href="/app/settings/individuals/fields" >
+								Fields
+							</a>
+						</li>
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/types/relationship" >
+								Relationships
+							</a>
+						</li>
+
+
+						<li class="nav-header">Tasks</li>
+
+
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/types/interactions" >
+								Types
+							</a>
+						</li>
+
+						<li class="nav-header">Leads</li>
+
+
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/types/interactions" >
+								Types
+							</a>
+						</li>
+						<li class="nav-header">Objectives</li>
+
+
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/types/interactions" >
+								Types
+							</a>
+						</li>
+
+						<li class="nav-header">System</li>
+						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
+							<a href="/app/settings/users" >
+								<i class="fa fa-users "></i>
+								Users
+							</a>
+						</li>
+					
+					</ul>
+				</li>
+				
+			
+				
+				<li>
+					<a href="/logout" style="padding-right:15px;">
+						<i class="fa fa-sign-out"></i>
+						<span class="visible-xs-inline"> Logout</span>
+					</a>
+				</li>
+			
+			</ul>
+		
+		
+		
+		</div>
+	</div>
+
+</nav>

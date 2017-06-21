@@ -1,0 +1,107 @@
+.small-header {
+	.panel {
+		margin-bottom :0;
+	}
+}
+.normalheader {
+	margin-bottom : 15px;
+
+}
+
+.panel-fixed {
+  > .panel-footer {
+	visibility: hidden;
+  }
+  &.fixed {
+	position       : absolute;
+	top            : 0;
+	right          : 0;
+	left           : 0;
+	bottom         : 0;
+	margin-bottom  : 0;
+	padding-bottom : 0;
+	> .panel-heading {
+	  position : absolute;
+	  top      : 0;
+	  left     : 0;
+	  right    : 0;
+	}
+	> .panel-body {
+	  position   : absolute;
+
+	  left       : 0;
+	  right      : 0;
+
+	  overflow-y : auto;
+	}
+	> .panel-footer {
+	  visibility: visible;
+	  position : absolute;
+	  left     : 0;
+	  right    : 0;
+	  bottom   : 0;
+	}
+  }
+
+  &.no-body {
+
+	> .panel-body {
+
+	  background: none;
+	  border-left:none;
+	  border-right:none;
+
+
+	  .panel {
+		margin-left:-20px;
+		margin-right:-20px;
+		.panel-body {
+
+		}
+	  }
+
+	}
+  }
+
+
+}
+
+#toolbar {
+	.panel-body {
+		padding : 10px 20px;
+	}
+}
+
+.panel-group {
+	border : 1px solid #e4e5e7;
+}
+.panel-body {
+	&.no-border {
+		border:none;
+	}
+	&.no-padding {
+		padding:0;
+	  .help-text {
+		margin-left:15px;
+		margin-right:15px;
+	  }
+	}
+}
+.panel {
+	&.form-group {
+		margin-left:inherit;
+		margin-right:inherit;
+	}
+	&.has-error {
+		.panel-heading {
+			color:red;
+		}
+		.panel-body {
+			border-top-color:red!important;
+		}
+	}
+	
+}
+.panel {
+	background:none;
+}

@@ -1,0 +1,59 @@
+
+
+
+	<div class="clearfix"></div>
+
+
+
+<div >
+	
+	<div>
+		
+		<div class="panel blue">
+			<div class="panel-heading built">HTML Content</div>
+			
+		
+			<div class="panel-body form-horizontal" style="padding:0;">
+				<textarea name="html" id="html" cols="30" rows="10" placeholder="<div>Place your code here</div>">{{ settings['html'] }}</textarea>
+			</div>
+			
+		</div>
+		
+		
+	
+		
+	
+	
+		<div class="clearfix"></div>
+		<div style="height:30px;"></div>
+	</div>
+
+</div>
+
+<style type="text/css">
+	.style-radios .radio {
+		padding-top:10px;
+		border-bottom:1px dotted #ccc;
+		padding-bottom: 10px;
+	}
+</style>
+
+<script type="text/javascript">
+	var cm = CodeMirror.fromTextArea(document.getElementById('html'), {
+		mode: "xml", htmlMode: true, lineNumbers: false, //viewportMargin: "Infinity",
+		lineWrapping: true,
+	});
+	
+	cm.setSize(null, "auto");
+	
+	
+	$.doTimeout(500,function() {
+		
+		cm.refresh();
+	});
+
+
+	
+	
+</script>
+

@@ -1,0 +1,171 @@
+
+
+<ul class="nav nav-tabs nav-radio-tabs navbar-right" style="padding-right:30px;">
+	<li role="presentation" class=" {% if settings.custom_use_style=='1' %}active{% endif %}">
+		<a href="#custom"  data-toggle="tab"  data-radio="custom_use_style-1">
+			Custom Code
+		</a>
+	</li>
+	<li role="presentation" class="{% if settings.custom_use_style=='0' %}active{% endif %}">
+		<a href="#predefined" data-toggle="tab" data-radio="custom_use_style-0">
+			Predefined Style
+		</a>
+	</li>
+	
+</ul>
+
+	<div style="visibility: hidden;">
+		<input type="radio" name="custom_use_style" id="custom_use_style-0" value="0" {% if settings.custom_use_style=='0' %}checked="checked"{% endif %}>
+		<input type="radio" name="custom_use_style" id="custom_use_style-1" value="1" {% if settings.custom_use_style=='1' %}checked="checked"{% endif %}>
+	</div>
+	
+
+	<div class="clearfix"></div>
+
+
+
+<div class="tab-content">
+	<div class="tab-pane {% if settings.custom_use_style=='0' %}active{% endif %}" id="predefined">
+		
+		<div class="panel green">
+			<div class="panel-heading built">Options</div>
+			<div class="panel-body form-horizontal">
+				<div class="form-group">
+					<label for="name" class="col-sm-3 control-label">Type</label>
+					<div class="col-sm-7">
+						<select name="type" id="type"  class="form-control">
+							<option value="text" {% if settings['type']=="text" %}selected="selected"{% endif %}>Text</option>
+							<option value="password" {% if settings['type']=="password" %}selected="selected"{% endif %}>Password</option>
+							<optgroup label="html 5 types">
+								<option value="color" {% if settings['type']=="color" %}selected="selected"{% endif %}>color</option>
+								<option value="date" {% if settings['type']=="date" %}selected="selected"{% endif %}>date</option>
+								<option value="datetime" {% if settings['type']=="datetime" %}selected="selected"{% endif %}>datetime</option>
+								<option value="datetime-local" {% if settings['type']=="datetime-local" %}selected="selected"{% endif %}>datetime-local</option>
+								<option value="email" {% if settings['type']=="email" %}selected="selected"{% endif %}>email</option>
+								<option value="month" {% if settings['type']=="month" %}selected="selected"{% endif %}>month</option>
+								<option value="number" {% if settings['type']=="number" %}selected="selected"{% endif %}>number</option>
+								<option value="range" {% if settings['type']=="range" %}selected="selected"{% endif %}>range</option>
+								<option value="search" {% if settings['type']=="search" %}selected="selected"{% endif %}>search</option>
+								<option value="tel" {% if settings['type']=="tel" %}selected="selected"{% endif %}>tel</option>
+								<option value="time" {% if settings['type']=="time" %}selected="selected"{% endif %}>time</option>
+								<option value="url" {% if settings['type']=="url" %}selected="selected"{% endif %}>url</option>
+								<option value="week" {% if settings['type']=="week" %}selected="selected"{% endif %}>week</option>
+							</optgroup>
+							
+							
+							
+							
+						</select>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="placeholder" class="col-sm-3 control-label">Placeholder</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control" id="placeholder" name="placeholder"  placeholder="Placeholder" value="{{ settings['placeholder'] }}">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="label" class="col-sm-3 control-label">Label</label>
+					<div class="col-sm-7">
+						<input type="text" class="form-control" id="label" name="label"  placeholder="Label" value="{{ settings['label'] }}">
+					</div>
+				</div>
+				
+				
+				
+			</div>
+			
+		</div>
+		<div class="panel orange">
+			<div class="panel-heading built">Styles</div>
+			<div class="panel-body form-horizontal style-radios">
+				<div class="radio">
+					<label>
+						<input type="radio" name="style" id="style-1" value="1" {% if settings.style=='1' %}checked="checked"{% endif %}>
+						
+						<img src="/resources/inputs/text/images/field-label-n.png" alt="Label above" style="width:100%">
+						
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="style" id="style-2" value="2" {% if settings.style=='2' %}checked="checked"{% endif %}>
+						
+						<img src="/resources/inputs/text/images/field-label-w.png" alt="Label to the left" style="width:100%">
+						
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+						<input type="radio" name="style" id="style-3" value="3" {% if settings.style=='3' %}checked="checked"{% endif %}>
+						<img src="/resources/inputs/text/images/field-no-label.png" alt="No label" style="width:100%">
+					</label>
+				</div>
+			</div>
+		</div>	
+	
+	
+	</div>
+	<div class="tab-pane {% if settings.custom_use_style=='1' %}active{% endif %}" id="custom">
+		
+		<div class="panel blue">
+			<div class="panel-heading built">Custom Code</div>
+			
+		
+			<div class="panel-body form-horizontal custom-code-panel-body">
+				<textarea name="custom_style" id="custom_style" cols="30" rows="10" placeholder="<div>Place your code here</div>">{{ settings['custom_style'] }}</textarea>
+			</div>
+			<div class="alert alert-info">
+				Please make sure the field's name is the same as the "name" field above or else the data wont get captured.
+			</div>
+		</div>
+		
+		
+	
+		
+	
+	
+		<div class="clearfix"></div>
+		<div style="height:30px;"></div>
+	</div>
+
+</div>
+
+<style type="text/css">
+	.style-radios .radio {
+		padding-top:10px;
+		border-bottom:1px dotted #ccc;
+		padding-bottom: 10px;
+	}
+</style>
+
+<script type="text/javascript">
+	var cm = CodeMirror.fromTextArea(document.getElementById('custom_style'), {
+		mode: "xml", htmlMode: true, lineNumbers: false, //viewportMargin: "Infinity",
+		lineWrapping: true,
+	});
+	
+	cm.setSize(null, "auto");
+	
+	
+	$.doTimeout(500,function() {
+		
+		cm.refresh();
+	});
+
+
+	$(document).on("shown.bs.tab",".nav-radio-tabs",function(e){
+		tabradios(e,$(this))
+	});
+	function tabradios(e,t){
+		var $tabs = $(t);
+		$tabs.find("a.active").removeClass("active");
+		$tabs.find("li.active > a").addClass("active");
+		
+		$("input#"+$(e.target).attr("data-radio")).click();
+		cm.refresh();
+		
+	}
+</script>
+

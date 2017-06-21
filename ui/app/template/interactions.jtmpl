@@ -1,0 +1,119 @@
+{% import "_macros.twig" as macros %}
+<script type="text/x-jqote-template" id="template-content">
+	<![CDATA[
+	<div id="toolbar" class="" style="top: 47px;">
+		<div class="container small-header">
+			<div class="panel">
+				<div class="panel-body">
+
+
+
+					<div class="col-sm-3">
+						<table style="width:100%;">
+							<tr>
+								<td style="padding-right:10px;">
+									<a href="#" class="btn btn-info btn-form-interaction" data-id=""><i class="fa fa-plus"></i></a>
+								</td>
+								<td>
+									<div class="btn-group btn-group-justified ">
+
+										<a href="#" class="btn <% if(this.options.mine=='0'){ %>btn-info<% } else { %>btn-default<% } %> btn-filter-mine" data-value="0">All</a>
+										<a href="#" class="btn <% if(this.options.mine=='1'){ %>btn-info<% } else { %>btn-default<% } %> btn-filter-mine" data-value="1">Mine</a>
+
+									</div>
+								</td>
+							</tr>
+						</table>
+
+
+					</div>
+
+
+					<div class="col-sm-5">
+
+
+						<form id="search-form" role="search">
+							<div class="input-group  " style="width:100%">
+								<input type="text" class="form-control" placeholder="Search" name="search" id="search" value="<%= this.options.search||'' %>">
+								<div class="input-group-btn">
+									<% if(this.options.search){ %>
+									<button class="btn btn-danger" type="reset"><i class="fa fa-close"></i></button>
+									<% } %>
+									<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+					<div class="col-sm-4">
+						{{ macros.toolbar_settings("btn-info") }}
+						<div style="margin-right:90px;" class="daterangepicker-container">
+							<input type="hidden" id="daterange" name="daterange" value="<%= this.options.daterange||'' %>">
+							<div id="reportrange" class="pull-right form-control ">
+								<b class="caret pull-right"></b>
+								<i class="fa fa-calendar"></i>&nbsp;&nbsp;
+								<span></span>
+							</div>
+						</div>
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<table class="table table-condensed table-bordered records stack-table" id="content-table">
+		<% for(var g in this.records){ %>
+		<thead>
+		<% if(this.options.groupby != "none"){ %>
+		<tr class="table-heading-row">
+			<th colspan="<%= Object.keys(this.options.columns).length %>">
+				<h3><%= this.records[g].heading||'' %></h3>
+			</th>
+		</tr>
+		<% } %>
+
+
+		<tr class="table-columns-row">
+			<% for (var key in this.options.columns){ %>
+			<th class="<% if(this.options.columns[key].o){ %>options-order <% } %><% if(this.options.order==key){ %>active<% } %>" data-value="<%= key %>" data-dir="<%= this.options.order_dir %>">
+				<% if(this.options.order==key){ %>
+				<% if(this.options.order_dir=="DESC"){ %>
+				<i class="fa fa-sort-<%= this.options.columns[key].o %>-desc"></i>
+				<% } else { %>
+				<i class="fa fa-sort-<%= this.options.columns[key].o %>-asc"></i>
+				<% } %>
+				<% } %>
+				<%= this.options.columns[key].l %>
+
+			</th>
+			<% } %>
+		</tr>
+		</thead>
+		<tbody>
+
+		<% for (var i in this.records[g].records){ %>
+		<tr class="record record-interaction" data-id="<%= this.records[g].records[i].ID %>">
+			<% for (var key in this.options.columns){ %>
+			<td>
+				<%= this.records[g].records[i][key]||'' %>
+			</td>
+			<% } %>
+		</tr>
+		<% } %>
+
+
+		</tbody>
+
+		<% } %>
+
+	</table>
+
+
+	]]>
+</script>

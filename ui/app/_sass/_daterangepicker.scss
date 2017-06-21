@@ -1,0 +1,16 @@
+@import "./vendor/components/daterangepicker/daterangepicker.scss";
+
+.daterangepicker-container {
+  .form-control {
+    cursor: pointer;
+  }
+  .caret {
+    &.pull-right {
+
+      margin-top:8px;
+    }
+  }
+
+
+}
+

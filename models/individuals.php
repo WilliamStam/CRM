@@ -1,0 +1,284 @@
+<?php
+namespace models;
+use \timer as timer;
+
+class individuals extends _ {
+
+	
+	private static $instance;
+	function __construct() {
+		parent::__construct();
+
+
+		$this->table = "individuals";
+		$this->fieldssO =  new fields($this->table);
+		$this->fields = $this->fieldssO->getAll("cID = '{$this->user['company']['ID']}'");
+
+
+	}
+	public static function getInstance(){
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
+		return self::$instance;
+	}
+	function fields(){
+		return $this->fields;
+	}
+	function get($ID,$options=array()) {
+		$timer = new timer();
+		$where = "(ID = '$ID' OR MD5(ID) = '$ID')";
+		
+		
+		$result = $this->getData($where,"","0,1",$options);
+		
+
+		if (count($result)) {
+			$return = $result[0];
+			
+		} else {
+			$return = parent::dbStructure($this->table);
+		}
+
+		if ($options['format']){
+			$return = $this->format($return,$options);
+		}
+
+		if ($options['render']){
+			$return = $this->format($return,$options);
+			$fields = array();
+			foreach ($this->fields as $field){
+				$field['value'] = $return[$field['key']];
+				$fields[] = $field;
+			}
+
+			//test_array($fields);
+
+			$template = renderer::getInstance()->render( $this->user['company']['individuals_'.$options['render']], $options['render'], $fields);
+			$return['template'] = $template;
+			//test_string($template);
+			//test_array($this->fields);
+
+		}
+		
+		//test_array($return);
+		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
+		return $return;
+	}
+	public function getAll($where = "", $orderby = "", $limit = "", $options = array()) {
+		$result = $this->getData($where,$orderby,$limit,$options);
+		$result = $this->format($result,$options);
+		return $result;
+		
+	}
+
+	public function getData($where = "", $orderby = "", $limit = "", $options = array()) {
+		$timer = new timer();
+		$f3 = \Base::instance();
+
+		$sql = $this->fieldssO->DataSQL($where, $orderby, $limit, $options);
+
+
+
+		if (isset($_GET['sql'])&&isLocal()){
+			test_string($sql);
+		}
+
+		//
+		$result = $f3->get("DB")->exec($sql, $args, $ttl);
+
+		//test_array($result);
+		$return = $result;
+		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
+		return $return;
+	}
+
+	
+	
+	public static function _save($ID, $values = array()) {
+		$timer = new timer();
+		$f3 = \Base::instance();
+		$return = array();
+
+
+		//test_array($values);
+
+		if (isset($values['data']))$values['data'] = json_encode($values['data']);
+
+
+		$a = new \DB\SQL\Mapper($f3->get("DB"), "individuals");
+		$a->load("ID='$ID'");
+
+
+
+		//test_array($values);
+		foreach ($values as $key => $value) {
+			if (isset($a->$key)) {
+				$a->$key = $value;
+			}
+		}
+
+		$a->save();
+		$ID = ($a->ID) ? $a->ID : $a->_id;
+
+
+		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
+		return $ID;
+	}
+
+
+
+
+
+
+	public static function _delete($ID) {
+		$timer = new timer();
+		$f3 = \Base::instance();
+		$user = $f3->get("user");
+
+
+		$a = new \DB\SQL\Mapper($f3->get("DB"),"individuals");
+		$a->load("ID='$ID'");
+
+		$a->erase();
+
+		$a->save();
+
+
+		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
+		return "done";
+
+	}
+	
+	
+	static function format($data,$options) {
+		$timer = new timer();
+		$single = false;
+		$f3 = \Base::instance();
+		$cfg = $f3->get('cfg');
+		if (isset($data['ID'])) {
+			$single = true;
+			$data = array($data);
+		}
+		//test_array($items);
+		
+		
+		
+		$recordIDs = array();
+		
+		$i = 1;
+		$n = array();
+		foreach ($data as $item) {
+			$recordIDs[] = $item['ID'];
+			if (isset($item['data'])) unset($item['data']);
+
+
+			if (isset($options['group_heading'])) $item['group_heading'] = $item[$options['group_heading']];
+			$item = fields::format_record(self::getInstance()->fields(),$item,$cfg);
+
+			$n[] = $item;
+		}
+
+
+
+		
+	//	test_array($n);
+		
+		
+		
+		
+		
+		if ($single) $n = $n[0];
+		
+		
+		$records = $n;
+		
+		
+		
+	//	test_array($records);
+		
+		
+		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
+		return $records;
+	}
+
+	function _columns($select=false){
+		$return = array();
+		$return["ID"] =array(
+				"c"=>"ID", 	// column
+				"l"=>"ID",				// label
+				"d"=>"Record ID",		// description
+				"w"=>40,				// width
+				"m"=>30,				// minimum width
+				"o"=>"numeric"			// order icon type
+			);
+
+		$return["date_in"] =array(
+				"c"=>"date_in", 	// column
+				"l"=>"date_in",				// label
+				"d"=>"Date Captured",		// description
+				"w"=>40,				// width
+				"m"=>30,				// minimum width
+				"o"=>"numeric"			// order icon type
+			);
+
+		foreach($this->fields as $field){
+			$return[$field['key']] = array(
+				"c"=>"`".$field['key']."`",
+				"l"=>$field['name'],
+				"d"=>$field['description'],
+				"o"=>$field['value_type'],
+				"lookup"=>$field['isLookup']
+			);
+		}
+
+
+	//	test_array($this->user);
+
+	//
+
+
+		if ($select){
+			$r = array();
+			foreach((array)$select as $key){
+				$r[$key] = $return[$key];
+			}
+			$return = $r;
+		}
+		//test_array($return);
+
+
+		return $return;
+	}
+	function _groupby(){
+		$columns = self::_columns();
+		$return = array(
+			"none"=>array(
+				"l"=>"None",
+				"d"=>"None",
+				"c"=>"'None'",
+			),
+
+
+
+		);
+
+		foreach($this->fields as $field){
+			if ($field['isGroup']){
+				$return[$field['key']] = array(
+					"c"=>"`".$field['key']."`",
+					"l"=>$field['name'],
+					"d"=>$field['description']
+				);
+			}
+
+		}
+
+		//test_array($return);
+
+		return $return;
+	}
+	
+	
+	
+}

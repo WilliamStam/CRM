@@ -1,0 +1,87 @@
+{% macro toolbar_settings(btn_colour) %}
+<form id="toolbar-settings-form" action="#">
+	<div class="btn-group pull-right">
+		<button class="btn btn-default btn-refresh" type="button"><i class="fa fa-refresh"></i></button>
+
+
+		<button type="button" class="btn {{ btn_colour }} dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left:12px; padding-right:12px;">
+			<i class="fa fa-cogs"></i>
+		</button>
+
+		<ul class="dropdown-menu  dropdown-menu-right">
+
+			<li class="nav-header">Group By</li>
+			<% for (var i in this.setup.groupby){ %>
+			<li class="<% if(this.options.groupby==i){ %>active<% } %>"
+			<% if(this.setup.groupby[i].d){ %>title="<%= this.setup.groupby[i].d %>" data-toggle="tooltip" data-placement="left" <% } %>>
+			<a href="#" class="options-groups" data-value="<%= i %>"><%= this.setup.groupby[i].d %></a>
+			</li>
+			<% } %>
+
+			<li>
+				<ul class="dropdown-menu-sub" style="margin-top:10px;">
+					<li class="<% if(this.options.groupby_dir=='ASC'){ %>active<% } %>" style="width:50%; display: inline-block;">
+						<a href="#" class="options-groups-order" data-value="ASC">
+							<i class="fa fa-sort-amount-asc" style="margin-left:-12px;"></i> ASC
+						</a>
+					</li>
+					<li class="<% if(this.options.groupby_dir=='DESC'){ %>active<% } %>" style="width:50%; display: inline-block;">
+						<a href="#" class="options-groups-order" data-value="DESC">DESC
+							<i class="fa fa-sort-amount-desc" style="margin-right:-8px;"></i>
+						</a>
+					</li>
+				</ul>
+			</li>
+
+
+			<li role="separator" class="divider"></li>
+			<li class="nav-header" title="Drag columns up and down to order them">Columns
+				<span class="badge pull-right" style="background-color: transparent"><i class="fa fa-arrows-v "></i></span>
+			</li>
+			<li>
+				<ul class="dropdown-menu-sub" id="options-columns">
+					<% for (var i in this.options.columns){ %>
+					<li class="checkbox checkbox-primary">
+						<input type="checkbox" name="columns[]" id="column-<%= i %>" value="<%= i %>" checked>
+						<label for="column-<%= i %>">
+							<%= this.options.columns[i].d %>
+						</label>
+					</li>
+					<% } %>
+
+
+					<% for (var i in this.setup.columns){ %>
+					<% if(typeof this.options.columns[i] ==='undefined'){ %>
+					<li class="checkbox checkbox-primary">
+						<input type="checkbox" name="columns[]" id="column-<%= i %>" value="<%= i %>">
+						<label for="column-<%= i %>">
+							<%= this.setup.columns[i].d %>
+						</label>
+					</li>
+					<% } %>
+					<% } %>
+				</ul>
+			</li>
+			<li>
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon" style="font-size:11px;">Return</span>
+						<input type="text" class="form-control input-sm" id="num_records" name="num_records" value="<%= this.options.num_records %>" style="padding-left:0; padding-right: 0;" />
+						<span class="input-group-addon" style="font-size:11px;">records</span>
+					</div>
+				</div>
+
+			</li>
+			<li>
+
+				<button class="btn {{ btn_colour }} btn-sm dropdown-menu-save-btn" type="submit" id="options-save-columns" style="width:100%;">Save Settings</button>
+
+
+			</li>
+
+
+		</ul>
+
+	</div>
+</form>
+{% endmacro %}

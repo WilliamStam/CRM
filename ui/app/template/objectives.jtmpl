@@ -1,0 +1,80 @@
+{% import "_macros.twig" as macros %}
+<script type="text/x-jqote-template" id="template-content">
+	<![CDATA[
+	<div id="toolbar" class="" style="top: 47px;">
+		<div class="container small-header">
+			<div class="panel">
+				<div class="panel-body">
+
+
+					<div class="col-sm-3">
+						<table style="width:100%;">
+							<tr>
+								<td style="padding-right:10px;">
+									<a href="#" class="btn btn-success btn-form-objective" data-id=""><i class="fa fa-plus"></i></a>
+								</td>
+								<td>
+									<div class="btn-group btn-group-justified ">
+
+										<a href="#" class="btn <% if(this.options.type=='1'){ %>btn-success<% } else { %>btn-default<% } %> btn-filter-type" data-value="1">Type 1</a>
+										<a href="#" class="btn <% if(this.options.type=='2'){ %>btn-success<% } else { %>btn-default<% } %> btn-filter-type" data-value="2">Type 2</a>
+
+									</div>
+								</td>
+							</tr>
+						</table>
+					</div>
+
+
+
+
+
+					<div class="col-sm-5">
+
+
+						<form id="search-form" role="search">
+							<div class="input-group  " style="width:100%">
+								<input type="text" class="form-control" placeholder="Search" name="search" id="search" value="<%= this.options.filter.search||'' %>">
+								<div class="input-group-btn">
+									<% if(this.options.filter.search){ %>
+									<button class="btn btn-danger" type="reset"><i class="fa fa-close"></i></button>
+									<% } %>
+									<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+								</div>
+							</div>
+						</form>
+					</div>
+
+
+					<div class="col-sm-4">
+						{{ macros.toolbar_settings("btn-success") }}
+						<div style="margin-right:90px;" class="daterangepicker-container">
+							<input type="hidden" id="daterange" name="daterange" value="<%= this.options.daterange||'' %>">
+							<div id="reportrange" class="pull-right form-control ">
+								<b class="caret pull-right"></b>
+								<i class="fa fa-calendar"></i>&nbsp;&nbsp;
+								<span></span>
+							</div>
+						</div>
+
+
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<section class="panel">
+		<div class="panel-heading built"></div>
+		<div class="panel-body">
+
+			<div style="height:1000px;"></div>
+
+		</div>
+		<div class="panel-footer"></div>
+	</section>
+
+	]]>
+</script>
