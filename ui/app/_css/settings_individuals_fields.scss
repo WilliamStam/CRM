@@ -137,6 +137,17 @@ $active-border: 3px solid #bdbdbd;
 	padding: 5px 10px;
 	cursor: pointer;
   }
+
+  .grid-preview {
+	margin-right:100px;
+	margin-left:10px;
+	.content-area {
+	  min-height:15px;
+	  border:1px dotted #666;
+	}
+
+
+  }
 }
 
 

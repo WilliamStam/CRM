@@ -262,18 +262,43 @@
 			<div class="list-group" id="list-items">
 				<% for (var i in this.list){ %>
 				<div class="list-group-item" data-id="item-<%= this.list[i].ID %>-<%= this.list[i].resource %>-<%= this.list[i].type %>" data-resource="<%= this.list[i].resource %>">
+
+					<% if (this.list[i].preview){ %>
+					<small class="pull-right"><%= this.list[i].name %></small>
+
+					<div>
+						<%= this.list[i].preview %>
+					</div>
+					<% } else { %>
+					<small class="pull-right"><%= this.list[i].description %></small>
+
 					<div>
 						<%= this.list[i].name %>
-						<small class="pull-right"><%= this.list[i].description %></small>
 					</div>
+					<% } %>
+
+					<div class="clearfix"></div>
 				</div>
 				<% } %>
 				<% for (var i in this.default_list){ %>
 				<div class="list-group-item" data-id="item-<%= this.default_list[i].ID %>-<%= this.default_list[i].resource %>-<%= this.default_list[i].type %>" data-resource="<%= this.default_list[i].resource %>">
+					<% if (this.default_list[i].preview){ %>
+					<small class="pull-right"><%= this.default_list[i].name %></small>
+
+					<div>
+						<%= this.default_list[i].preview %>
+					</div>
+					<% } else { %>
+					<small class="pull-right"><%= this.default_list[i].description %></small>
+
 					<div>
 						<%= this.default_list[i].name %>
-						<small class="pull-right"><%= this.default_list[i].description %></small>
 					</div>
+					<% } %>
+
+
+					<div class="clearfix"></div>
+
 				</div>
 				<% } %>
 			</div>

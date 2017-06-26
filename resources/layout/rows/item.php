@@ -28,8 +28,7 @@ class item extends \resources\layout\items {
 		
 		$list[] = array(
 			"ID" => "layout|rows|1column",
-			"name" => "12 column",
-			"description" => "1 row 12 columns",
+			"name" => "12",
 			"data"=>array(
 				"html"=>'<div class="row"><div class="col-sm-12 content-area"></div></div>'
 			)
@@ -37,19 +36,36 @@ class item extends \resources\layout\items {
 		);
 		$list[] = array(
 			"ID" => "layout|rows|2columns",
-			"name" => "6 | 6 column",
-			"description" => "1 row 2 columns 50% each",
+			"name" => "6 | 6",
 			"data"=>array(
 				"html"=>'<div class="row"><div class="col-sm-6 content-area"></div><div class="col-sm-6 content-area"></div></div>'
 			)
 
 		);
+		$list[] = array(
+			"ID" => "layout|rows|3columns",
+			"name" => "4 | 4 | 4",
+			"data"=>array(
+				"html"=>'<div class="row"><div class="col-sm-4 content-area"></div><div class="col-sm-4 content-area"></div><div class="col-sm-4 content-area"></div></div>'
+			)
+		);
+		$list[] = array(
+			"ID" => "layout|rows|4columns",
+			"name" => "3 | 3 | 3 | 3",
+			"data"=>array(
+				"html"=>'<div class="row"><div class="col-sm-3 content-area"></div><div class="col-sm-3 content-area"></div><div class="col-sm-3 content-area"></div><div class="col-sm-3 content-area"></div></div>'
+			)
+		);
 		
 		$l = array();
 		foreach ($list as $item) {
+
 			$item['resource'] =  self::_def()['resource'];
 			$item['type'] = self::_def()['type'];
 			$item['key'] = $item['ID'];
+			$item['description'] = $item['name']  ;
+			$item['preview'] = "<div class='grid-preview'>".$item['data']['html']."</div>" ;
+
 			$l[$item['ID']] = $item;
 		}
 

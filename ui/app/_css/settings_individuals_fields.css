@@ -58,6 +58,13 @@
   padding: 5px 10px;
   cursor: pointer; }
 
+#list-items .grid-preview {
+  margin-right: 100px;
+  margin-left: 10px; }
+  #list-items .grid-preview .content-area {
+    min-height: 15px;
+    border: 1px dotted #666; }
+
 #content-zone {
   border: 1px solid #cccccc;
   border-radius: 4px;
