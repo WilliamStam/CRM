@@ -14,39 +14,9 @@ class items extends \resources\_ {
 		return self::$instance;
 	}
 	
-	function render($data,$adminRender){
-		$return = "";
-		
-		//test_array($data); 
-		
-		if ($adminRender){
-			$tmpl = new \template("admin_template.twig","resources/panels");
-			$tmpl->settings = $data['data'];
-			$tmpl->data = $data;
-			$return = $tmpl->render_template(); ;
-		} else {
-			$module = $data['module'];
-			$inputO = \resources\layout\items::getClass($module);
-			if (class_exists($inputO)){
-				$return = $inputO::getInstance()->front($data);
-			}
-			
-			
-		}
-		
-		return $return;
-		
-	}
+
 	
-	static function merge_data($data,$default){
-		if (isset($data['data'])&&is_array($data['data'])){
-			$settings = array_merge($default,(array)$data['data']);
-		} else {
-			$settings = $default;
-		}
-		$data['data'] = $settings;
-		return $data;
-	}
+
 	
 	static function getList($inputtypes=false){
 		$return = array();

@@ -59,7 +59,28 @@ $(document).ready(function() {
 			}
 
 		})
+	});
+	$(document).on("dblclick", "#content-zone .item ", function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		var $item = $this.closest(".item");
+		var id = $item.attr("data-item");
 
+		if (id){
+			$.bbq.pushState({"module":id});
+			getModule();
+		}
+
+	});
+	$(document).on("dblclick", "#list-items .list-group-item", function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		var id = $this.attr("data-id");
+
+		if (id){
+			$.bbq.pushState({"module":id});
+			getModule();
+		}
 
 
 	});
@@ -76,14 +97,15 @@ $(document).ready(function() {
 	$(document).on("click", "#btn-trash", function(e) {
 		e.preventDefault();
 		$("#______content______").val("");
-		$("#content-zone").jqotesub($("#template-content-area-blank"),{});
+		var renderer = $("#type-btns .btn-primary").attr("data-value");
+		$("#content-zone").jqotesub($("#template-content-area-blank-"+renderer),{});
 		setupDrag();
 	});
 
 
 
 	getData();
-
+	getModule();
 
 	$(".select2").select2();
 
@@ -122,10 +144,39 @@ $(document).ready(function() {
 		$parent.find(".btn").removeClass("btn-primary").addClass("btn-default")
 		$this.removeClass("btn-default").addClass("btn-primary");
 
-		render_tab_pane()
+	});
+	$(document).on('submit', '#resource-item-form', function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		var data = $(this).serialize();
+
+		$.post("/app/save/settings_individuals_fields/resource",data,function(result){
+			result = result.data;
+			validationErrors(result, $this);
+			if (!result.errors) {
+				$("#form").submit();
+				$this.closest(".modal").modal("hide");
+			}
+		});
+		console.log(data)
+
 	});
 
 });
+function getModule(){
+	var id = $.bbq.getState("module");
+
+	if (id){
+		$.getData("/app/data/settings_individuals_fields/resource",{"ID":id},function(response){
+			$("#modal-window").jqotesub($("#template-content-item-modal"), response).modal("show").on("hide.bs.modal",function(){
+				$.bbq.pushState({"module":""})
+			});
+
+			$("#modal-window .modal-body").jqotesub(response.template,response);
+		})
+	}
+
+}
 function setupDrag(){
 
 	$( "#content-zone .content-area" ).sortable({

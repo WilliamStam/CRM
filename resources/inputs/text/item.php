@@ -3,16 +3,14 @@ namespace resources\inputs\text;
 
 class item extends \resources\inputs\items {
 	private static $instance;
-	
-	function __construct() {
+
+	function __construct($resource) {
 		parent::__construct();
+		$this->resource = $resource;
 	}
 	
-	public static function getInstance() {
-		if (is_null(self::$instance)) {
-			self::$instance = new self();
-		}
-		
+	public static function getInstance($resource=array()) {
+		self::$instance = new self($resource);
 		return self::$instance;
 	}
 	
@@ -34,11 +32,7 @@ class item extends \resources\inputs\items {
 			"name" => "fullname",
 			"value_type"=>"alpha",
 			"data" => array(
-				
-				"label" => "Full Name",
-				"placeholder" => "Full Name",
-				"style" => "2",
-				"custom_use_style" => "0",
+
 			)
 		
 		);
@@ -47,6 +41,7 @@ class item extends \resources\inputs\items {
 		foreach ($list as $item) {
 			$item['resource'] =  self::_def()['resource'];
 			$item['type'] = self::_def()['type'];
+			$item['key'] = $item['ID'];
 			$l[$item['ID']] = $item;
 		}
 
@@ -56,51 +51,19 @@ class item extends \resources\inputs\items {
 	
 	static function default_data() {
 		$settings = array(
-				"placeholder" => "",
-				"style" => "2",
-				"label" => "",
-				"custom_use_style" => "0",
-			// form-horizontal, form-inline
+				"select" => "",
+				"join" => "",
+				"form" => "",
+				"details" => "",
 		);
 		
 		
 		return $settings;
 	}
 
-	function form($data,$value_field="value") {
-		$settings = array();
-
-		$data = self::_settings($data);
-		$settings = $data['data'];
-
-		$vals = array(
-			"settings"=>$settings,
-			"data"=>$data,
-			"value_field"=>$value_field,
-		);
 
 
-		return \resources\_::_templ($data,$value_field,"form.twig",self::_def(),$vals);
 
-	}
-	function details($data,$value_field="value") {
-		$settings = array();
-
-		$data = self::_settings($data);
-		$settings = $data['data'];
-
-		$vals = array(
-			"settings"=>$settings,
-			"data"=>$data,
-			"value_field"=>$value_field,
-		);
-		//test_array($vals);
-		return \resources\_::_templ($data,$value_field,"details.twig",self::_def(),$vals);
-
-	}
-	static function _settings($data){
-		return parent::merge_data($data,self::default_data());
-	}
 	
 	
 }

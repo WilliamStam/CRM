@@ -1,0 +1,56 @@
+{% include 'field_admin.twig' %}
+{% include 'inputs\\admin.twig' %}
+
+
+
+<div class="form-horizontal">
+	<div class="form-group">
+		<label for="value_type" class="col-sm-2 control-label">Value type</label>
+		<div class="col-sm-10">
+			<div class="radio radio-info">
+				<input type="radio" name="value_type" id="value_type_alpha" value="alpha" <% if(this.record.value_type=="alpha" || this.record.value_type==""){ %>checked<% } %>>
+				<label for="value_type_alpha">
+
+					Alpha (A-Z)
+				</label>
+			</div>
+			<div class="radio radio-info">
+				<input type="radio" name="value_type" id="value_type_numeric" value="numeric" <% if(this.record.value_type=="numeric"){ %>checked<% } %>>
+				<label for="value_type_numeric">
+
+					Numeric (0-9)
+				</label>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label for="inputPassword3" class="col-sm-2 control-label">Options</label>
+		<div class="col-sm-10">
+			<div class="checkbox checkbox-info">
+				<input type="checkbox" name="isGroup" id="isGroup" value="1" <% if(this.record.isGroup=='1'){ %>checked<% } %>>
+				<label for="isGroup">
+
+					Group by
+				</label>
+			</div>
+			<div class="checkbox checkbox-info">
+				<input type="checkbox" name="isLookup" id="isLookup" value="1" <% if(this.record.isLookup=='1'){ %>checked<% } %>>
+				<label for="isLookup">
+
+					Lookup
+				</label>
+			</div>
+
+		</div>
+	</div>
+</div>
+<div class="form-group">
+	<label for="template-form">Form</label>
+	<textarea name="data[form]" id="template-form" class="form-control" rows="5"><%= this.templates.form %></textarea>
+</div>
+<div class="form-group">
+	<label for="template-details">Details</label>
+	<textarea name="data[details]" id="template-details"  class="form-control" rows="5"><%= this.templates.details %></textarea>
+</div>

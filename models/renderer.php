@@ -18,20 +18,20 @@ class renderer extends _ {
 		return self::$instance;
 	}
 
-	function render($template,$renderer,$records,$value_field="value"){
+	function render($template,$renderer,$fields,$data=array(),$mask=false){
 		$content = $template;
 		$timer = new timer();
 		$content_arr = array();
 		$content_arr_layout = array();
-		foreach ($records as $item){
+		foreach ($fields as $item){
 			$classO = "resources\\".$item['resource']."\\".$item['type']."\\item";
 			if (class_exists($classO)) {
 				$item['class'] = $classO;
 				$content_arr[$item['ID'] . "-" . $item['resource']."-" . $item['type']] = $item;
 			}
 		}
-		$records = fields::getInstance("layout")->getAll();
-		foreach ($records as $item){
+		$fields = fields::getInstance("layout")->getAll();
+		foreach ($fields as $item){
 			$classO = "resources\\".$item['resource']."\\".$item['type']."\\item";
 			if (class_exists($classO)) {
 				$item['class'] = $classO;
@@ -75,10 +75,9 @@ class renderer extends _ {
 				$type = explode("|",$def_item);
 				$classO = "resources\\".$type[0]."\\".$type[1]."\\item";
 				if (class_exists($classO)){
-					$data = $classO::_list($def_item);
-					$data = $data[0];
-					$data['class'] = $classO;
-					$content_arr[$def_item."-".$type[0]."-".$type[1]] = $data;
+					$d = $classO::_list($def_item);
+					$d['class'] = $classO;
+					$content_arr[$def_item."-".$type[0]."-".$type[1]] = $d;
 				}
 
 			}
@@ -90,23 +89,14 @@ class renderer extends _ {
 				$id = $attr['data-item'];
 				$id = str_replace("item-", "", $id);
 				if (isset($content_arr[$id])){
-					$data = $content_arr[$id];
-					$chan[] = $data;
+					$d = $content_arr[$id];
+					$chan[] = $d;
 
-					$classO = $data['class'];
-					$classO = $classO::getInstance();
+					$classO = $d['class'];
+					$classO = $classO::getInstance($d);
+					$html = $classO->render($data,"template");
 
-					switch ($renderer){
-						case "form":
-							$html = $classO->form($data,$value_field);
-							break;
-						default:
-							$renderer = "details";
-							$html = $classO->details($data,$value_field);
-							break;
-
-					}
-					//if ($id=="html|hr-html") test_array($data);
+					//if ($id=="html|hr-html") test_array(d);
 
 				//	$html = $html . "<div class='clearfix'></div><div class='mask'></div>";
 					$item->outerHTML = $html;
@@ -146,10 +136,9 @@ class renderer extends _ {
 				$type = explode("|",$def_item);
 				$classO = "resources\\".$type[0]."\\".$type[1]."\\item";
 				if (class_exists($classO)){
-					$data = $classO::_list($def_item);
-					$data = $data[0];
-					$data['class'] = $classO;
-					$content_arr[$def_item."-".$type[0]."-".$type[1]] = $data;
+					$d = $classO::_list($def_item);
+					$d['class'] = $classO;
+					$content_arr[$def_item."-".$type[0]."-".$type[1]] = $d;
 				}
 
 			}
@@ -165,25 +154,19 @@ class renderer extends _ {
 				$id = $attr['data-item'];
 				$id = str_replace("item-", "", $id);
 				if (isset($content_arr[$id])){
-					$data = $content_arr[$id];
-					$chan[] = $data;
+					$d = $content_arr[$id];
+					$chan[] = $d;
 
-					$classO = $data['class'];
-					$classO = $classO::getInstance();
+				//	test_array($d);
+					$classO = $d['class'];
+					$classO = $classO::getInstance($d);
+					$html = $classO->render($data,$renderer);
+					//if ($id=="item-5-inputs-text") test_array(d);
 
-					switch ($renderer){
-						case "form":
-							$html = $classO->form($data,$value_field);
-							break;
-						default:
-							$renderer = "details";
-							$html = $classO->details($data,$value_field);
-							break;
-
+					$html = $html . "<div class='clearfix'></div>";
+					if ($mask)	{
+						$html = $html . "<div class='mask' title='{$d['resource']}/{$d['type']}/{$d['name']}'><div class='mask-label'>{$d['resource']}/{$d['type']}</div></div>";
 					}
-					//if ($id=="html|hr-html") test_array($data);
-
-					$html = $html . "<div class='clearfix'></div><div class='mask'></div>";
 					$item->innerHTML = $html;
 				}
 			}

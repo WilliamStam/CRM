@@ -143,27 +143,27 @@ class template {
 		}
 
 //test_array($this->vars['page']); 
-
 		if ($this->config['strictfolder']) {
 			$folder = $this->vars['folder'];
 		}
 
+
+		$twig = $this->twigify($folder);
+
+
+		//test_array(array("template"=>$this->template,"vars"=>$this->vars));
+
+		return $twig->render($this->template, $this->vars);
+
+
+	}
+	private function twigify($folder){
+
+
 		$loader = new Twig_Loader_Filesystem($folder);
 
 		$options = array();
-		if (!isLocal() && $this->f3->get("CACHE")) {
-			//	$options['cache'] = $this->config['cache_dir'];
-
-		}
 		$options['debug'] = true;
-		//$options['cache'] = false;
-
-
-
-
-		//test_array($this->vars); 
-
-
 
 		$twig = new Twig_Environment($loader, $options);
 		$twig->addExtension(new Twig_Extension_Debug());
@@ -174,16 +174,13 @@ class template {
 		}
 		));
 
-
-		//test_array(array("template"=>$this->template,"vars"=>$this->vars));
-
-		return $twig->render($this->template, $this->vars);
-
-
+		return $twig;
 	}
 
-	public function render_string() {
-		$twig = new \Twig_Environment(new \Twig_Loader_Array());
+
+	public function render_string($folder="") {
+		$twig = $this->twigify($folder);
+
 		$template = $twig->createTemplate($this->vars['template']);
 		return $template->render($this->vars);
 	}

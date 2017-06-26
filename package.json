@@ -1,6 +1,6 @@
 {
-  "name": "Ad-Server",
-  "version": "3.0.0",
+  "name": "CRM",
+  "version": "0.0.1",
   "private": true,
   "minimum-stability": "dev",
   "devDependencies": {

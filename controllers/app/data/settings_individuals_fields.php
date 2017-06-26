@@ -91,20 +91,32 @@ class settings_individuals_fields extends _ {
 		$content = $this->user['company']['individuals_'.$settings['renderer']];
 
 
-		$content = isset($_REQUEST['content'])?$_REQUEST['content']:$content;
+		$template = isset($_REQUEST['content'])?$_REQUEST['content']:$content;
 		$renderer = $settings['renderer'];
 
 
-		$records = models\fields::getInstance("individuals")->getAll();
+		$fields = models\fields::getInstance("individuals")->getAll();
 
 
+		$data = array();
+		foreach ($fields as $item){
+			$data[$item['key']] = $item['name'];
+		}
 
 
+		$default_resources = resources\_::getList();
 
 
+		foreach ($default_resources as $resource_item){
+			$items = $resource_item['class']::_list();
+			foreach ($items as $item){
+				$data[$item['ID']] = $item['name'];
+			}
+		}
 
+		//test_array($fields);
 
-		$content = models\renderer::getInstance()->render($content, $renderer, $records,"name");
+		$content = models\renderer::getInstance()->render($template, $renderer, $fields,$data,true);
 
 
 		$return = array();
@@ -117,6 +129,63 @@ class settings_individuals_fields extends _ {
 		$timer->stop("Renderer");
 		return $GLOBALS["output"]['data'] = $return;
 	}
+	function resource(){
+		$return = array();
+		$ID = isset($_GET['ID'])?$_GET['ID']:"";
+		if ($ID){
+			$parts = explode("-",$ID);
+			$ID = $parts[1];
+			$resource = $parts[2];
+			$type = $parts[3];
 
+			$class = "resources\\{$resource}\\{$type}\\item";
+			$return['def'] = $class::_def();
+			$table = "individuals";
+			if (is_numeric($ID)){
+				$return['record'] = models\fields::getInstance($table)->get($ID,array("format"=>true));
+			} else {
+				$return['record'] = $class::_list($ID);
+			}
+
+
+
+
+
+			$return['template'] =  $class::getInstance($return['record'])->render(array(),"admin");
+
+
+			$return['resource'] = $return['record']['resource']?$return['record']['resource']:$resource;
+			$return['type'] = $return['record']['type']?$return['record']['type']:$type;
+			if ($return['record']['resource']=="layout"){
+				$table = "layout";
+			}
+
+			$return['table'] = $table;
+			//$return['record']['value'] = "woof";
+
+			$return['templates'] = array(
+				"form"=>$class::getInstance($return['record'])->template("form"),
+				"details"=>$class::getInstance($return['record'])->template("details"),
+			);
+
+		}
+
+
+
+
+
+
+
+		return $GLOBALS["output"]['data'] = $return;
+	}
+
+	function testing(){
+
+		$class = "resources\\inputs\\text\\item";
+
+
+
+
+	}
 
 }

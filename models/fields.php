@@ -112,7 +112,7 @@ class fields extends _ {
 
 	
 	
-	function _save($values = array()) {
+	function _save($ID,$values = array()) {
 		$timer = new timer();
 		$f3 = \Base::instance();
 		$return = array();
@@ -124,7 +124,13 @@ class fields extends _ {
 
 
 		$a = new \DB\SQL\Mapper($f3->get("DB"), "fields_".$this->table);
-		$a->load("name='{$values['name']}'");
+		if (!is_numeric($ID) && $ID!=""){
+			$a->load("name='{$values['name']}'");
+		} else {
+			$a->load("ID='{$ID}'");
+		}
+
+		//if (isset($values['data'])) $values['data'] = json_encode($values['data']);
 
 
 
@@ -137,17 +143,6 @@ class fields extends _ {
 
 		$a->save();
 		$ID = ($a->ID) ? $a->ID : $a->_id;
-
-		if ($values['name']){
-			$data_table = $this->table;
-			$data_column = $values['name'];
-
-			$data_col_type = "VARCHAR(16)";
-
-
-
-
-		}
 
 
 

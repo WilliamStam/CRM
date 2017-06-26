@@ -78,6 +78,8 @@ const sass = require('gulp-sass');
 const concat = require('gulp-concat');
 const rename = require('gulp-rename');
 const merge = require('merge-stream');
+
+
 var gitCommitMessage = false;
 
 
@@ -85,9 +87,8 @@ var build = false;
 
 const gulp = require('gulp');
 require("time-require");
-
 const duration = require('gulp-duration');
-
+//const mod = gulp.submodule('mod');
 
 gulp.task('test', function (done) {
 	var autoprefixer = (typeof autoprefixer !== 'undefined') ? autoprefixer : require('gulp-autoprefixer');
@@ -165,11 +166,12 @@ gulp.task('sass', function (done) {
 
 });
 
-
 gulp.task('javascript', function (done) {
 
 	if (process.argv.indexOf("--build") != -1) build = true;
 	if (process.argv.indexOf("-b") != -1) build = true;
+
+
 
 	if (build) {
 		var sourcemaps = (typeof sourcemaps !== 'undefined') ? sourcemaps : require('gulp-sourcemaps');

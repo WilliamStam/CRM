@@ -3,16 +3,14 @@ namespace resources\layout\panels;
 
 class item extends \resources\layout\items {
 	private static $instance;
-	
-	function __construct() {
+
+	function __construct($resource) {
 		parent::__construct();
+		$this->resource = $resource;
 	}
-	
-	public static function getInstance() {
-		if (is_null(self::$instance)) {
-			self::$instance = new self();
-		}
-		
+
+	public static function getInstance($resource=array()) {
+		self::$instance = new self($resource);
 		return self::$instance;
 	}
 	
@@ -72,6 +70,7 @@ class item extends \resources\layout\items {
 		foreach ($list as $item) {
 			$item['resource'] =  self::_def()['resource'];
 			$item['type'] = self::_def()['type'];
+			$item['key'] = $item['ID'];
 			$l[$item['ID']] = $item;
 		}
 		$list = self::searching($l,$search);
@@ -92,53 +91,6 @@ class item extends \resources\layout\items {
 		
 		return $settings;
 	}
-	
-	function form($data,$value_field="value") {
-		$settings = array();
-		
-		$data = self::_settings($data);
-		$settings = $data['data'];
 
-		$vals = array(
-			"settings"=>$settings,
-			"data"=>$data,
-			"value_field"=>$value_field,
-		);
-
-		return \resources\_::_templ($data,$value_field,"template.twig",self::_def(),$vals);
-		
-	}
-	function details($data,$value_field="value") {
-		$settings = array();
-
-		$data = self::_settings($data);
-		$settings = $data['data'];
-
-		$vals = array(
-			"settings"=>$settings,
-			"data"=>$data,
-			"value_field"=>$value_field,
-		);
-
-		return \resources\_::_templ($data,$value_field,"template.twig",self::_def(),$vals);
-
-	}
-	
-	function admin($data) {
-		$settings = array();
-
-		$data = self::_settings($data);
-		$settings = $data['data'];
-
-		$tmpl = new \template("admin_template.twig", "resources/layout/".self::_def()['type']);
-		$tmpl->settings = $settings;
-		$tmpl->data = $data;
-		
-		return $tmpl->render_template();
-	}
-	static function _settings($data){
-		return parent::merge_data($data,self::default_data());
-	}
-	
 	
 }

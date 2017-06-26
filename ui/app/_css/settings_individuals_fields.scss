@@ -135,11 +135,12 @@ $active-border: 3px solid #bdbdbd;
 
   .list-group-item {
 	padding: 5px 10px;
+	cursor: pointer;
   }
 }
 
 
-.content-zone {
+#content-zone {
   border: 1px solid #cccccc;
   border-radius: 4px;
   box-shadow: 0 0 10px rgba(150, 150, 150, 0.2) inset;
@@ -165,17 +166,57 @@ $active-border: 3px solid #bdbdbd;
 	position: relative;
 	margin-top:3px;
 	margin-bottom:3px;
+	
 	.mask {
 	  position: absolute;
 	  top: 0;
 	  left: 0;
 	  right: 0;
 	  bottom: 0;
-	  background: rgba(250, 0, 0, 0.1);
+	  background: rgba(250, 0, 0, 0.05);
+	  cursor: pointer;
+	  &:hover {
+		background: rgba(250, 0, 0, 0.1);
+		.mask-label {
+		  display:block;
+		}
+	  }
+
+	}
+	.mask-label {
+	  display: none;
+	  position: absolute;
+	  bottom: 0px;
+	  right: 0;
+	  font-size:8px;
+	  text-shadow: 0 0 4px #fff;
 	}
   }
   .modal-dialog {
 	margin-top:30px;
   }
 
+
+  .footer-mask {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(250, 250, 250, 0.5);
+	background: /* On "top" */
+			repeating-linear-gradient(
+							45deg,
+							rgba(250, 250, 250,0.6),
+							rgba(250, 250, 250,0.6) 5px,
+							rgba(250, 250, 250, 0.5) 5px,
+							rgba(250, 250, 250, 0.5) 10px
+			),
+			  /* on "bottom" */
+			linear-gradient(
+							to bottom,
+							rgba(250, 250, 250,0.6),
+							rgba(250, 250, 250,0.6)
+			);
+  }
 }

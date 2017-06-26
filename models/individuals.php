@@ -46,15 +46,32 @@ class individuals extends _ {
 
 		if ($options['render']){
 			$return = $this->format($return,$options);
+			$data = array();
 			$fields = array();
 			foreach ($this->fields as $field){
-				$field['value'] = $return[$field['key']];
-				$fields[] = $field;
+				$data[$field['key']] = $return[$field['key']];
 			}
+
+			$default_resources = \resources\_::getList();
+
+
+			foreach ($default_resources as $resource_item){
+				$items = $resource_item['class']::_list();
+				foreach ($items as $item){
+					$data[$item['ID']] = $item['name'];
+				}
+
+			}
+
+			//test_array($data);
+
+
+
+
 
 			//test_array($fields);
 
-			$template = renderer::getInstance()->render( $this->user['company']['individuals_'.$options['render']], $options['render'], $fields);
+			$template = renderer::getInstance()->render( $this->user['company']['individuals_'.$options['render']], $options['render'], $this->fields,$data);
 			$return['template'] = $template;
 			//test_string($template);
 			//test_array($this->fields);

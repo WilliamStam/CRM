@@ -240,7 +240,7 @@
     "components/toastr":"dev-master",
     "filamentgroup/tablesaw":"dev-master",
     "benpickles/peity":"*",
-    "nnnick/chartjs":"*",
+    "nnnick/chartjs":"~2.5",
     "ichord/caret":"dev-master",
     "WilliamStam/SearchBox":"dev-master",
     "ivopetkov/html5-dom-document-php":"*"

@@ -7,46 +7,9 @@ class items extends \resources\_ {
 	function __construct(){
 		parent::__construct();
 	}
-	public static function getInstance(){
-		if ( is_null( self::$instance ) ) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+
 	
-	function render($data,$adminRender){
-		$return = "";
-		
-		//test_array($data); 
-		
-		if ($adminRender){
-			$tmpl = new \template("admin_template.twig","resources/inputs");
-			$tmpl->settings = $data['data'];
-			$tmpl->data = $data;
-			$return = $tmpl->render_template(); ;
-		} else {
-			$module = $data['module'];
-			$inputO = \resources\inputs\items::getInputClass($module);
-			if (class_exists($inputO)){
-				$return = $inputO::getInstance()->front($data);
-			}
-			
-			
-		}
-		
-		return $return;
-		
-	}
-	
-	static function merge_data($data,$default){
-		if (isset($data['data'])&&is_array($data['data'])){
-			$settings = array_merge($default,(array)$data['data']);
-		} else {
-			$settings = $default;
-		}
-		$data['data'] = $settings;
-		return $data;
-	}
+
 	
 	static function getList($inputtypes=false){
 		$return = array();
