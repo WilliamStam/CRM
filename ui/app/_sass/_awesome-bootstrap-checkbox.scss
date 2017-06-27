@@ -126,7 +126,7 @@ $check-icon: $fa-var-check !default;
 
 
 
-
+@include checkbox-variant('.checkbox-primary2', $brand-primary2);
 @include checkbox-variant('.checkbox-primary', $brand-primary);
 @include checkbox-variant('.checkbox-danger', $brand-danger);
 @include checkbox-variant('.checkbox-info', $brand-info);
@@ -134,6 +134,7 @@ $check-icon: $fa-var-check !default;
 @include checkbox-variant('.checkbox-success', $brand-success);
 
 
+@include checkbox-variant-indeterminate('.checkbox-primary2', $brand-primary2);
 @include checkbox-variant-indeterminate('.checkbox-primary', $brand-primary);
 @include checkbox-variant-indeterminate('.checkbox-danger', $brand-danger);
 @include checkbox-variant-indeterminate('.checkbox-info', $brand-info);

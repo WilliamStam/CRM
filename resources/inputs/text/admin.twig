@@ -2,55 +2,143 @@
 {% include 'inputs\\admin.twig' %}
 
 
+<div class="panel blue no-borders has-alert">
+	<div class="panel-heading">Template Parts</div>
+	<div class="panel-body">
 
-<div class="form-horizontal">
-	<div class="form-group">
-		<label for="value_type" class="col-sm-2 control-label">Value type</label>
-		<div class="col-sm-10">
-			<div class="radio radio-info">
-				<input type="radio" name="value_type" id="value_type_alpha" value="alpha" <% if(this.record.value_type=="alpha" || this.record.value_type==""){ %>checked<% } %>>
-				<label for="value_type_alpha">
+		<div>
+			<!-- Nav tabs -->
+			<ul class="nav nav-pills nav-justified" role="tablist" id="template-parts-tabs">
+				<li role="presentation" class="active"><a href="#tab-details" aria-controls="tab-details" role="tab" data-toggle="tab">Details</a></li>
+				<li role="presentation"><a href="#tab-form" aria-controls="tab-form" role="tab" data-toggle="tab">Form</a></li>
+			</ul>
 
-					Alpha (A-Z)
-				</label>
-			</div>
-			<div class="radio radio-info">
-				<input type="radio" name="value_type" id="value_type_numeric" value="numeric" <% if(this.record.value_type=="numeric"){ %>checked<% } %>>
-				<label for="value_type_numeric">
-
-					Numeric (0-9)
-				</label>
-			</div>
-
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label for="inputPassword3" class="col-sm-2 control-label">Options</label>
-		<div class="col-sm-10">
-			<div class="checkbox checkbox-info">
-				<input type="checkbox" name="isGroup" id="isGroup" value="1" <% if(this.record.isGroup=='1'){ %>checked<% } %>>
-				<label for="isGroup">
-
-					Group by
-				</label>
-			</div>
-			<div class="checkbox checkbox-info">
-				<input type="checkbox" name="isLookup" id="isLookup" value="1" <% if(this.record.isLookup=='1'){ %>checked<% } %>>
-				<label for="isLookup">
-
-					Lookup
-				</label>
+			<!-- Tab panes -->
+			<div class="tab-content" style="margin-top:10px;">
+				<div role="tabpanel" class="tab-pane active" id="tab-details">
+					<div class="form-group">
+						<textarea name="data[details]" id="template-details"  class="form-control CodeMirror" rows="5" data-mode="htmlmixed"><%= this.templates.details %></textarea>
+					</div>
+				</div>
+				<div role="tabpanel" class="tab-pane" id="tab-form">
+					<div class="form-group">
+						<textarea name="data[form]" id="template-form" class="form-control CodeMirror" rows="5" data-mode="htmlmixed"><%= this.templates.form %></textarea>
+					</div>
+				</div>
 			</div>
 
 		</div>
+
+	</div>
+	<div class="alert alert-info">
+		<p>Use twig style template syntax</p>
 	</div>
 </div>
-<div class="form-group">
-	<label for="template-form">Form</label>
-	<textarea name="data[form]" id="template-form" class="form-control" rows="5"><%= this.templates.form %></textarea>
+
+<div class="panel orange no-borders" style="margin-top:15px;">
+	<div class="panel-heading">Options</div>
+	<div class="panel-body">
+		<div class="form-horizontal">
+			<div class="form-group">
+				<label for="value_type" class="col-sm-3 control-label">Value type</label>
+				<div class="col-sm-8">
+					<div class="radio radio-info">
+						<input type="radio" name="value_type" id="value_type_alpha" value="alpha" <% if(this.record.value_type=="alpha" || this.record.value_type==""){ %>checked<% } %>>
+						<label for="value_type_alpha">
+
+							Alpha (A-Z) <i class="fa fa-sort-alpha-asc" style="color:#ccc; margin-left:20px;"></i>
+						</label>
+					</div>
+					<div class="radio radio-info">
+						<input type="radio" name="value_type" id="value_type_numeric" value="numeric" <% if(this.record.value_type=="numeric"){ %>checked<% } %>>
+						<label for="value_type_numeric">
+
+							Numeric (0-9) <i class="fa fa-sort-numeric-asc" style="color:#ccc; margin-left:20px;"></i>
+						</label>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="isGroup" class="col-sm-3 control-label">Options</label>
+				<div class="col-sm-8">
+					<div class="checkbox checkbox-info">
+						<input type="checkbox" name="isGroup" id="isGroup" value="1" <% if(this.record.isGroup=='1'){ %>checked<% } %>>
+						<label for="isGroup">
+							Group by
+						</label>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="form-group">
-	<label for="template-details">Details</label>
-	<textarea name="data[details]" id="template-details"  class="form-control" rows="5"><%= this.templates.details %></textarea>
+<div class="panel violet no-borders has-alert">
+	<div class="panel-heading">Custom Select <span class="text-danger pull-right">(ADVANCED - be carefull)</span></div>
+	<div class="panel-body">
+
+
+
+
+
+		<div class="form-group">
+
+			<div class="input-group">
+				<span class="input-group-addon">SELECT ... (</span>
+				<input type="text" class="form-control" id="template-select" name="data[select]" placeholder="name" value="<%= this.record.data.select||'' %>">
+				<span class="input-group-addon">) AS &lt; <em>name</em> &gt;</span>
+			</div>
+
+		</div>
+
+
+
+
+	</div>
+	<div class="alert alert-danger">
+		<p>
+			This gets used if you want to manipulate the "value" before it gets displayed.
+		</p>
+		<p>
+			For instance <em>LEFT(`name` , 1)</em> here will return the first character of the field "name".
+		</p>
+	</div>
 </div>
+
+
+
+<script>
+	$(document).on("shown.bs.tab", "#template-parts-tabs", function (e) {
+		for (var i in codemirrors){
+			codemirrors[i].refresh();
+		}
+	});
+
+
+	setTimeout(function(){
+		$(".CodeMirror").each(function(){
+			var $this = $(this);
+			var _id = $(this).attr("id");
+
+			var mode = $this.attr("data-mode");
+
+			if (mode){
+				if (typeof codemirrors[_id] === "undefined"){
+					codemirrors[_id] = CodeMirror.fromTextArea(document.getElementById(_id), {
+						'mode': mode,
+						'lineNumbers': true,
+						'lineWrapping':true
+					});
+
+
+				} else {
+					codemirrors[_id].refresh();
+				}
+			}
+		})
+	}, 500);
+
+</script>

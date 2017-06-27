@@ -66,9 +66,6 @@
     border: 1px dotted #666; }
 
 #content-zone {
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(150, 150, 150, 0.2) inset;
   min-height: 100px; }
   #content-zone:empty {
     color: #666666;
@@ -115,3 +112,10 @@
     bottom: 0;
     background: rgba(250, 250, 250, 0.5);
     background: repeating-linear-gradient(45deg, rgba(250, 250, 250, 0.6), rgba(250, 250, 250, 0.6) 5px, rgba(250, 250, 250, 0.5) 5px, rgba(250, 250, 250, 0.5) 10px), linear-gradient(to bottom, rgba(250, 250, 250, 0.6), rgba(250, 250, 250, 0.6)); }
+
+#resource-item-form .panel {
+  margin-bottom: 0; }
+  #resource-item-form .panel .panel-body {
+    padding: 15px 4px; }
+  #resource-item-form .panel.has-alert .panel-body {
+    padding-bottom: 0; }

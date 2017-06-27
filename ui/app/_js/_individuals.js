@@ -16,7 +16,7 @@ function getIndividualDetails(){
 			$.getData("/app/data/contacts/individual",{"ID":id[1]},function(result){
 
 				//console.log(result.template)
-				$("#modal-window").jqotesub(result.template,result).modal("show").on("hide.bs.modal",function(){
+				$("#modal-window").jqotesub($("#template-modal-individuals"),result).modal("show").on("hide.bs.modal",function(){
 					$.bbq.pushState({"details":""})
 				})
 

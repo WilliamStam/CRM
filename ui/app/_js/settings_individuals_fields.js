@@ -1,4 +1,5 @@
 var content_blocks = {};
+var codemirrors = {};
 $(document).ready(function() {
 
 	$(document).on("click",'#type-btns .btn',function(e){
@@ -7,8 +8,9 @@ $(document).ready(function() {
 
 
 		var val = $this.attr("data-value");
-		var $content = $("#content-zone");
+		var $content = $("#content-zone-area");
 		var content =  cleanup();
+
 
 
 
@@ -36,8 +38,13 @@ $(document).ready(function() {
 
 			$.getData("/app/data/settings_individuals_fields/_render",{"renderer":val},function(response){
 				$content.html(response.content);
-				$("#content-zone").data("content",cleanup());
+				$("#content-zone-area").data("content",cleanup());
 				$("#______renderer______").val(response.renderer);
+				$("#content-zone .modal-footer").jqotesub($("#template-modal-individuals-footer-"+response.renderer),response);
+
+				if ($("#content-zone .modal-footer .mask")!=1){
+					$("#content-zone .modal-footer").append($("<div>").addClass("footer-mask"))
+				}
 
 				setupDrag()
 			})
@@ -60,7 +67,7 @@ $(document).ready(function() {
 
 		})
 	});
-	$(document).on("dblclick", "#content-zone .item ", function(e) {
+	$(document).on("dblclick", "#content-zone-area .item ", function(e) {
 		e.preventDefault();
 		var $this = $(this);
 		var $item = $this.closest(".item");
@@ -98,7 +105,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		$("#______content______").val("");
 		var renderer = $("#type-btns .btn-primary").attr("data-value");
-		$("#content-zone").jqotesub($("#template-content-area-blank-"+renderer),{});
+		$("#content-zone-area").jqotesub($("#template-content-area-blank-"+renderer),{});
 		setupDrag();
 	});
 
@@ -179,7 +186,7 @@ function getModule(){
 }
 function setupDrag(){
 
-	$( "#content-zone .content-area" ).sortable({
+	$( "#content-zone-area .content-area" ).sortable({
 		revert: true,
 		connectWith: ".content-area",
 		receive: function (event, ui) {
@@ -198,13 +205,13 @@ function setupDrag(){
 		}
 	});
 	$( "#list-items .list-group-item" ).draggable({
-		connectToSortable: "#content-zone .content-area",
+		connectToSortable: "#content-zone-area .content-area",
 		helper: "clone",
 		revert: "invalid"
 	});
 }
 function cleanup(){
-	var $content = $("#content-zone").clone()
+	var $content = $("#content-zone-area").clone();
 
 	$content.find(".item").empty();
 	$content.find("*").removeClass("ui-sortable ui-sortable-handle");
@@ -221,7 +228,7 @@ function render(){
 	$.post("/app/data/settings_individuals_fields/_render",{"content":content},function(response){
 		response = response.data;
 
-		var $content = $("#content-zone");
+		var $content = $("#content-zone-area");
 		$content.html(response.content);
 		setupDrag()
 	});
@@ -243,7 +250,7 @@ function getData() {
 		$("#content-area").jqotesub($("#template-content"), data);
 		$("#side-bar-body").jqotesub($("#template-list"), data);
 
-		$("#content-zone").data("content",cleanup());
+		$("#content-zone-area").data("content",cleanup());
 		setupDrag()
 
 		sideMenu();

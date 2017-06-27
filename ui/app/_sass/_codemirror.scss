@@ -1,0 +1,15 @@
+@import "/ui/_plugins/CodeMirror/codemirror.css";
+@import "/ui/_plugins/CodeMirror/theme/railscasts.css";
+.CodeMirror {
+	border: 1px solid #eee;
+	height: auto;
+}
+.CodeMirror-scroll {
+	min-height: 100px;
+	box-shadow:0 0 10px #ccc inset;
+}
+.CodeMirror-sizer {
+
+	
+	
+}

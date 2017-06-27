@@ -152,9 +152,7 @@ $active-border: 3px solid #bdbdbd;
 
 
 #content-zone {
-  border: 1px solid #cccccc;
-  border-radius: 4px;
-  box-shadow: 0 0 10px rgba(150, 150, 150, 0.2) inset;
+
 
   min-height: 100px;
   &:empty {
@@ -230,4 +228,19 @@ $active-border: 3px solid #bdbdbd;
 							rgba(250, 250, 250,0.6)
 			);
   }
+}
+
+
+#resource-item-form {
+	.panel {
+	  margin-bottom:0;
+	  .panel-body {
+		padding:15px 4px;
+	  }
+	 &.has-alert {
+		.panel-body {
+		  padding-bottom:0;
+		}
+	 }
+	}
 }

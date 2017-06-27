@@ -139,3 +139,45 @@
 	]]>
 </script>
 
+<script type="text/x-jqote-template" id="template-modal-individuals">
+	<![CDATA[
+
+	<div class="modal-dialog " role="document">
+		<div class="modal-content">
+
+			<%= this.template %>
+
+			<div class="modal-footer" style="position:relative;">
+				<%= $.jqote($("#template-modal-individuals-footer-details"),this) %>
+				<div class="footer-mask"></div>
+			</div>
+
+		</div>
+	</div>
+
+
+	]]>
+</script>
+
+<script type="text/x-jqote-template" id="template-modal-individuals-footer-details">
+	<![CDATA[
+
+	<button type="button" class="btn btn-danger pull-left"><i class="fa fa-trash"></i></button>
+	<button type="button" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+
+	]]>
+</script>
+
+<script type="text/x-jqote-template" id="template-modal-individuals-footer-form">
+	<![CDATA[
+
+
+	<button type="submit" class="btn btn-primary">Save</button>
+
+
+	]]>
+</script>
+
+

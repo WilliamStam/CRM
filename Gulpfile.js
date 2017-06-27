@@ -22,6 +22,15 @@ var jsfile_admin = [
 	'vendor/components/daterangepicker/daterangepicker.js',
 
 
+	'ui/_plugins/CodeMirror/codemirror.js',
+	'ui/_plugins/CodeMirror/mode/xml/xml.js',
+	'ui/_plugins/CodeMirror/mode/javascript/javascript.js',
+	'ui/_plugins/CodeMirror/mode/css/css.js',
+	'ui/_plugins/CodeMirror/mode/htmlmixed/htmlmixed.js',
+	'ui/_plugins/CodeMirror/mode/twig/twig.js',
+
+
+
 
 
 	'vendor/ichord/caret/dist/jquery.caret.min.js',

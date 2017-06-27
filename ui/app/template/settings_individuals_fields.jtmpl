@@ -68,18 +68,27 @@
 				<div class="">
 					<section class="content-zone" id="content-zone">
 
-						<% if(this.content){ %>
-						<%= this.content %>
-						<% } else { %>
+						<div class="modal-dialog " role="document">
+							<div class="modal-content">
+								<section id="content-zone-area">
+									<% if(this.content){ %>
+									<%= this.content %>
+									<% } else { %>
 
 
-					<%= $.jqote($("#template-content-area-blank"),this) %>
+									<%= $.jqote($("#template-content-area-blank-"+renderer),this) %>
 
 
-						<% } %>
+									<% } %>
+								</section>
 
+								<div class="modal-footer" style="position:relative;">
+									<%= $.jqote($("#template-modal-individuals-footer-"+this.renderer),this) %>
+									<div class="footer-mask"></div>
+								</div>
 
-
+							</div>
+						</div>
 
 					</section>
 				</div>
@@ -140,8 +149,7 @@
 
 <script type="text/x-jqote-template" id="template-content-area-blank-details">
 	<![CDATA[
-	<div class="modal-dialog " role="document">
-		<div class="modal-content">
+
 			<div class="color-line"></div>
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position:absolute; top:5px ; right:5px;"><span aria-hidden="true">&times;</span></button>
@@ -156,19 +164,13 @@
 
 				</div>
 			</div>
-			<div class="modal-footer" style="position:relative;">
 
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-					<div class="footer-mask"></div>
-			</div>
-		</div>
-	</div>
+
 	]]>
 </script>
 <script type="text/x-jqote-template" id="template-content-area-blank-form">
 	<![CDATA[
-	<div class="modal-dialog " role="document">
-		<div class="modal-content">
+
 			<div class="color-line"></div>
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position:absolute; top:5px ; right:5px;"><span aria-hidden="true">&times;</span></button>
@@ -183,46 +185,11 @@
 
 				</div>
 			</div>
-			<div class="modal-footer" style="position:relative;">
-
-					<button type="submit" class="btn btn-primary" >Save</button>
-					<div class="footer-mask"></div>
-			</div>
-		</div>
-	</div>
-	]]>
-</script>
-
-<script type="text/x-jqote-template" id="template-content-area-blank">
-	<![CDATA[
-	<div class="modal-dialog " role="document">
-		<div class="modal-content">
-			<div class="color-line"></div>
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="position:absolute; top:5px ; right:5px;"><span aria-hidden="true">&times;</span></button>
-				<div class="modal-title">
-					<div class="content-area">
-
-					</div>
-				</div>
-			</div>
-			<div class="modal-body">
-				<div class="content-area">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-
-				<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-
-			</div>
-		</div>
-	</div>
-
 
 
 	]]>
 </script>
+
 
 
 

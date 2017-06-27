@@ -105,3 +105,12 @@
 .panel {
 	background:none;
 }
+.panel {
+  &.no-borders {
+	.panel-body {
+	  border-left:none;
+	  border-right:none;
+	  border-bottom:none;
+	}
+  }
+}

@@ -197,6 +197,7 @@ class fields extends _ {
 			if (isset($item['data'])) $item['data'] = json_decode($item['data'],true);
 			$item['key'] = "f".$item['ID'];
 
+			if (!is_array($item['data'])) $item['data'] =  array();
 
 
 
@@ -281,6 +282,11 @@ class fields extends _ {
 
 
 		foreach ($this->fields as $item){
+			if ($item['data']['select']){
+				$selectStr = $item['data']['select'];
+			} else {
+				$selectStr = "`{$item['key']}`";
+			}
 			$selectStr = "`{$item['key']}`";
 
 			if ($item['isLookup']=='1'){
