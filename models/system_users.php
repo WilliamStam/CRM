@@ -488,6 +488,11 @@ class system_users extends _ {
 				"type" => "layout-rows",
 				"renderer" => "details",
 			),
+			"settings_companies_fields" => array(
+				"search" => "",
+				"type" => "layout-rows",
+				"renderer" => "details",
+			),
 		);
 
 

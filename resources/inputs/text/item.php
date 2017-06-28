@@ -26,17 +26,6 @@ class item extends \resources\inputs\items {
 	static function _list($search="") {
 		$list = array();
 		
-		$list[] = array(
-			"ID" => "inputs|text|fullname",
-			"description" => "Text input 'Full Name'",
-			"name" => "fullname",
-			"value_type"=>"alpha",
-			"data" => array(
-
-			)
-		
-		);
-		
 		$l = array();
 		foreach ($list as $item) {
 			$item['resource'] =  self::_def()['resource'];

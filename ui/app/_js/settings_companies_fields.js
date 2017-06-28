@@ -36,11 +36,11 @@ $(document).ready(function() {
 			$("#type-btns .btn").removeClass("btn-primary").addClass("btn-default");
 			$this.addClass("btn-primary").removeClass("btn-default");
 
-			$.getData("/app/data/settings_individuals_fields/_render",{"renderer":val},function(response){
+			$.getData("/app/data/settings_companies_fields/_render",{"renderer":val},function(response){
 				$content.html(response.content);
 				$("#content-zone-area").data("content",cleanup());
 				$("#______renderer______").val(response.renderer);
-				$("#content-zone .modal-footer").jqotesub($("#template-modal-individuals-footer-"+response.renderer),response);
+				$("#content-zone .modal-footer").jqotesub($("#template-modal-companies-footer-"+response.renderer),response);
 
 				if ($("#content-zone .modal-footer .footer-mask")!=1){
 					$("#content-zone .modal-footer").append($("<div>").addClass("footer-mask"))
@@ -58,7 +58,7 @@ $(document).ready(function() {
 		var $this = $(this);
 		var data = $this.serialize();
 
-		$.post("/app/save/settings_individuals_fields/form",data,function(result){
+		$.post("/app/save/settings_companies_fields/form",data,function(result){
 			result = result.data;
 			validationErrors(result, $this);
 			if (!result.errors) {
@@ -157,7 +157,7 @@ $(document).ready(function() {
 		var $this = $(this);
 		var data = $(this).serialize();
 
-		$.post("/app/save/settings_individuals_fields/resource",data,function(result){
+		$.post("/app/save/settings_companies_fields/resource",data,function(result){
 			result = result.data;
 			validationErrors(result, $this);
 			if (!result.errors) {
@@ -174,7 +174,7 @@ function getModule(){
 	var id = $.bbq.getState("module");
 	codemirrors = {};
 	if (id){
-		$.getData("/app/data/settings_individuals_fields/resource",{"ID":id},function(response){
+		$.getData("/app/data/settings_companies_fields/resource",{"ID":id},function(response){
 			$("#modal-window").jqotesub($("#template-content-item-modal"), response).modal("show").on("hide.bs.modal",function(){
 				$.bbq.pushState({"module":""})
 			});
@@ -225,7 +225,7 @@ function render(){
 	var content = cleanup();
 
 
-	$.post("/app/data/settings_individuals_fields/_render",{"content":content},function(response){
+	$.post("/app/data/settings_companies_fields/_render",{"content":content},function(response){
 		response = response.data;
 
 		var $content = $("#content-zone-area");
@@ -243,7 +243,7 @@ function getData() {
 		rend = "?renderer="+$.bbq.getState("renderer");
 	}
 
-	$.getData("/app/data/settings_individuals_fields/data"+rend, {"search": search}, function(data) {
+	$.getData("/app/data/settings_companies_fields/data"+rend, {"search": search}, function(data) {
 		$.bbq.removeState("renderer");
 		content_blocks = data.content_blocks;
 
@@ -251,7 +251,7 @@ function getData() {
 		$("#side-bar-body").jqotesub($("#template-list"), data);
 
 		$("#content-zone-area").data("content",cleanup());
-		setupDrag()
+		setupDrag();
 
 		sideMenu();
 		if ($("#content-zone .modal-footer .footer-mask")!=1){
@@ -268,7 +268,7 @@ function getList() {
 	var type = $.bbq.getState("type");
 
 
-	$.getData("/app/data/settings_individuals_fields/_list", {"search": search, "type": type}, function(data) {
+	$.getData("/app/data/settings_companies_fields/_list", {"search": search, "type": type}, function(data) {
 		content_blocks = data.content_blocks;
 
 		$("#side-bar-body").jqotesub($("#template-list"), data);

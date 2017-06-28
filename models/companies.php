@@ -42,21 +42,41 @@ class companies extends _ {
 		} else {
 			$return = parent::dbStructure($this->table);
 		}
-		
+
+		$raw = $return;
 		if ($options['format']){
 			$return = $this->format($return,$options);
 		}
+
 		if ($options['render']){
+			$raw['data'] = (array) json_decode($raw['data'],true);
+
 			$return = $this->format($return,$options);
+			$data = array();
 			$fields = array();
-			foreach ($this->fields as $field){
-				$field['value'] = $return[$field['key']];
-				$fields[] = $field;
+			switch ($options['render']){
+				case "form":
+					foreach ($this->fields as $field){
+						$data[$field['key']] = isset($raw['data'][$field['key']])?$raw['data'][$field['key']]:"";
+					}
+					break;
+				default:
+					foreach ($this->fields as $field){
+						$data[$field['key']] = isset($return[$field['key']])?$return[$field['key']]:"";
+					}
+					break;
 			}
 
-			//test_array($fields);
 
-			$template = renderer::getInstance()->render( $this->user['company']['companies_'.$options['render']], $options['render'], $fields);
+
+
+
+
+
+
+
+			//test_array($fields);
+			$template = renderer::getInstance()->render( $this->user['company']['companies_'.$options['render']], $options['render'], $this->fields,$data);
 			$return['template'] = $template;
 			//test_string($template);
 			//test_array($this->fields);
@@ -100,21 +120,29 @@ class companies extends _ {
 
 
 
-	public static function _save($ID, $values = array()) {
+	public function _save($ID, $values = array()) {
 		$timer = new timer();
-		$f3 = \Base::instance();
+		$f3 = $this->f3;
 		$return = array();
 
 
 		//test_array($values);
 
-		if (isset($values['data']))$values['data'] = json_encode($values['data']);
+		//if (isset($values['data']))$values['data'] = json_encode($values['data']);
+		$data = $values["data"];
+		unset($values['data']);
+
+		$s = array();
+		foreach ($data as $key => $value) {
+			$s[] = "'$.$key', '$value'";
+		}
 
 
-		$a = new \DB\SQL\Mapper($f3->get("DB"), "companies");
+		$a = new \DB\SQL\Mapper($f3->get("DB"), $this->table);
 		$a->load("ID='$ID'");
 
 
+		$updateFields = true;
 
 		//test_array($values);
 		foreach ($values as $key => $value) {
@@ -123,9 +151,24 @@ class companies extends _ {
 			}
 		}
 
+
+		if ($a->data==""){
+			$a->data = json_encode($data);
+			$updateFields = false;
+		}
+
+
 		$a->save();
 		$ID = ($a->ID) ? $a->ID : $a->_id;
 
+
+
+		if (count($s) && $updateFields){
+			$d = json_encode(array("d"=>date("Y-m-d H:i:s")));
+			$s = implode(",",$s);
+			$sql = "UPDATE {$this->table} SET `data` = JSON_SET(`data`, $s) WHERE ID = '$ID'";
+			$f3->get("DB")->exec($sql);
+		}
 
 		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
 		return $ID;
@@ -136,7 +179,7 @@ class companies extends _ {
 
 
 
-	public static function _delete($ID) {
+	public function _delete($ID) {
 		$timer = new timer();
 		$f3 = \Base::instance();
 		$user = $f3->get("user");
@@ -182,10 +225,7 @@ class companies extends _ {
 
 
 			if (isset($options['group_heading'])) $item['group_heading'] = $item[$options['group_heading']];
-
-
 			$item = fields::format_record(self::getInstance()->fields(),$item,$cfg);
-
 
 			$n[] = $item;
 		}

@@ -24,11 +24,13 @@
 					</a>
 					<ul class="dropdown-menu icons">
 						<li class="nav-header">Add New...</li>
-						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-interaction " data-id=""> <i class="fa fa-handshake-o text-blue"></i> Interaction</a></li>
-						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-companies" data-id=""><i class="fa fa-address-book-o text-violet"></i>  Contact</a></li>
-						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-contacts" data-id=""><i class="fa fa-tasks text-red"></i>  Tasks</a></li>
-						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-leads" data-id=""><i class="fa fa-exclamation text-orange"></i>  Lead</a></li>
-						<li {% if page.sub_section =='categories' %}class="active"{% endif %}><a href="#" class="btn-form-leads" data-id=""><i class="fa fa-check-square-o text-green"></i>  Objective</a></li>
+						<li><a href="#" class="btn-form-interaction " data-id=""> <i class="fa fa-handshake-o text-blue"></i> Interaction</a></li>
+						<li><a href="#" class="form-individual" data-id=""><i class="fa fa-address-card-o text-violet"></i>  Individuals</a></li>
+						<li><a href="#" class="form-companies" data-id=""><i class="fa fa-building-o text-violet"></i>  Companies</a></li>
+
+						<li><a href="#" class="btn-form-contacts" data-id=""><i class="fa fa-tasks text-red"></i>  Tasks</a></li>
+						<li><a href="#" class="btn-form-leads" data-id=""><i class="fa fa-exclamation text-orange"></i>  Lead</a></li>
+						<li><a href="#" class="btn-form-leads" data-id=""><i class="fa fa-check-square-o text-green"></i>  Objective</a></li>
 
 
 
@@ -120,30 +122,21 @@
 								Types
 							</a>
 						</li>
-						<li class="nav-header">Contacts - Companies</li>
+						<li class="nav-header">Fields</li>
 
-						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
-							<a href="/app/settings/" >
-								Fields
-							</a>
-						</li>
-						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
-							<a href="/app/settings/types/relationship" >
-								Relationships
-							</a>
-						</li>
-						<li class="nav-header">Contacts - Individuals</li>
 
 						<li {% if page.sub_section =='individuals_fields' %}class="active"{% endif %}>
 							<a href="/app/settings/individuals/fields" >
-								Fields
+								Individuals
 							</a>
 						</li>
-						<li {% if page.sub_section =='users' %}class="active"{% endif %}>
-							<a href="/app/settings/types/relationship" >
-								Relationships
+
+						<li {% if page.sub_section =='individuals_companies' %}class="active"{% endif %}>
+							<a href="/app/settings/companies/fields" >
+								Companies
 							</a>
 						</li>
+
 
 
 						<li class="nav-header">Tasks</li>

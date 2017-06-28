@@ -18,6 +18,38 @@ class renderer extends _ {
 		return self::$instance;
 	}
 
+	function getItems($template){
+		$content = $template;
+		$timer = new timer();
+		$return = array();
+		$dom = new \IvoPetkov\HTML5DOMDocument();
+		$dom->loadHTML($content);
+
+		$parsedDom = $dom->querySelectorAll('.item');
+		$ids = array();
+		$default_ids = array();
+		$items = array();
+		foreach ($parsedDom as $item){
+			$attr = $item->getAttributes();
+			if (isset($attr['data-item']) && $attr['data-item']){
+				$id = $attr['data-item'];
+				$id = str_replace("item-", "", $id);
+				$id = explode("-",$id);
+				if (!in_array($id[0],$ids)){
+					if (is_numeric($id[0])){
+						$return[] = $id[0];
+					}
+
+				}
+
+			}
+		}
+
+		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
+		return $return;
+
+
+	}
 	function render($template,$renderer,$fields,$data=array(),$mask=false){
 		$content = $template;
 		$timer = new timer();

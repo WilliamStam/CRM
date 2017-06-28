@@ -25,9 +25,10 @@ class individuals extends _ {
 	function fields(){
 		return $this->fields;
 	}
+
 	function get($ID,$options=array()) {
 		$timer = new timer();
-		$where = "(ID = '$ID' OR MD5(ID) = '$ID')";
+		$where = "({$this->table}.ID = '$ID' OR MD5({$this->table}.ID) = '$ID')";
 		
 		
 		$result = $this->getData($where,"","0,1",$options);
@@ -51,7 +52,7 @@ class individuals extends _ {
 			foreach ($this->fields as $field){
 				$data[$field['key']] = $return[$field['key']];
 			}
-
+/*
 			$default_resources = \resources\_::getList();
 
 
@@ -62,7 +63,7 @@ class individuals extends _ {
 				}
 
 			}
-
+*/
 			//test_array($data);
 
 
@@ -110,23 +111,31 @@ class individuals extends _ {
 		return $return;
 	}
 
-	
-	
-	public static function _save($ID, $values = array()) {
+
+
+	public function _save($ID, $values = array()) {
 		$timer = new timer();
-		$f3 = \Base::instance();
+		$f3 = $this->f3;
 		$return = array();
 
 
 		//test_array($values);
 
-		if (isset($values['data']))$values['data'] = json_encode($values['data']);
+		//if (isset($values['data']))$values['data'] = json_encode($values['data']);
+		$data = $values["data"];
+		unset($values['data']);
+
+		$s = array();
+		foreach ($data as $key => $value) {
+			$s[] = "'$.$key', '$value'";
+		}
 
 
-		$a = new \DB\SQL\Mapper($f3->get("DB"), "individuals");
+		$a = new \DB\SQL\Mapper($f3->get("DB"), $this->table);
 		$a->load("ID='$ID'");
 
 
+		$updateFields = true;
 
 		//test_array($values);
 		foreach ($values as $key => $value) {
@@ -135,9 +144,24 @@ class individuals extends _ {
 			}
 		}
 
+
+		if ($a->data==""){
+			$a->data = json_encode($data);
+			$updateFields = false;
+		}
+
+
 		$a->save();
 		$ID = ($a->ID) ? $a->ID : $a->_id;
 
+
+
+		if (count($s) && $updateFields){
+			$d = json_encode(array("d"=>date("Y-m-d H:i:s")));
+			$s = implode(",",$s);
+			$sql = "UPDATE {$this->table} SET `data` = JSON_SET(`data`, $s) WHERE ID = '$ID'";
+			$f3->get("DB")->exec($sql);
+		}
 
 		$timer->_stop(__NAMESPACE__, __CLASS__, __FUNCTION__, func_get_args());
 		return $ID;

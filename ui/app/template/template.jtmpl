@@ -158,12 +158,34 @@
 
 	]]>
 </script>
+<script type="text/x-jqote-template" id="template-modal-individuals-form">
+	<![CDATA[
+	<form id="individual-form" data-id="<%= this.ID %>">
+	<div class="modal-dialog " role="document">
+		<div class="modal-content">
+
+			<%= this.template %>
+
+			<div class="modal-footer" style="position:relative;">
+				<%= $.jqote($("#template-modal-individuals-footer-form"),this) %>
+				<div class="footer-mask"></div>
+			</div>
+
+		</div>
+	</div>
+	</form>
+
+	]]>
+</script>
 
 <script type="text/x-jqote-template" id="template-modal-individuals-footer-details">
 	<![CDATA[
+	<div class="pull-left">
+		<button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+		<button type="button" class="btn btn-default form-individual" data-id="<%= this.ID %>"><i class="fa fa-pencil"></i></button>
+	</div>
 
-	<button type="button" class="btn btn-danger pull-left"><i class="fa fa-trash"></i></button>
-	<button type="button" class="btn btn-default"><i class="fa fa-pencil"></i></button>
+
 	<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 
 
@@ -173,11 +195,73 @@
 <script type="text/x-jqote-template" id="template-modal-individuals-footer-form">
 	<![CDATA[
 
-
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	<button type="submit" class="btn btn-primary">Save</button>
 
 
 	]]>
 </script>
 
+<script type="text/x-jqote-template" id="template-modal-companies">
+	<![CDATA[
+
+	<div class="modal-dialog " role="document">
+		<div class="modal-content">
+
+			<%= this.template %>
+
+			<div class="modal-footer" style="position:relative;">
+				<%= $.jqote($("#template-modal-companies-footer-details"),this) %>
+				<div class="footer-mask"></div>
+			</div>
+
+		</div>
+	</div>
+
+
+	]]>
+</script>
+<script type="text/x-jqote-template" id="template-modal-companies-form">
+	<![CDATA[
+	<form id="company-form" data-id="<%= this.ID %>">
+	<div class="modal-dialog " role="document">
+		<div class="modal-content">
+
+			<%= this.template %>
+
+			<div class="modal-footer" style="position:relative;">
+				<%= $.jqote($("#template-modal-companies-footer-form"),this) %>
+				<div class="footer-mask"></div>
+			</div>
+
+		</div>
+	</div>
+	</form>
+
+	]]>
+</script>
+
+<script type="text/x-jqote-template" id="template-modal-companies-footer-details">
+	<![CDATA[
+	<div class="pull-left">
+		<button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+		<button type="button" class="btn btn-default form-company" data-id="<%= this.ID %>"><i class="fa fa-pencil"></i></button>
+	</div>
+
+
+	<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+
+	]]>
+</script>
+
+<script type="text/x-jqote-template" id="template-modal-companies-footer-form">
+	<![CDATA[
+
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="submit" class="btn btn-primary">Save</button>
+
+
+	]]>
+</script>
 

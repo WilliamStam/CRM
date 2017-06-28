@@ -284,10 +284,33 @@ class contacts extends _ {
 
 		return $GLOBALS["output"]['data'] = $return;
 	}
+	function individual_form(){
+		$return = array();
+		$ID = isset($_GET['ID'])?$_GET['ID']:"";
+		$return = models\individuals::getInstance()->get($ID,array("render"=>"form"));
+
+
+
+
+
+		return $GLOBALS["output"]['data'] = $return;
+	}
+
 	function company(){
 		$return = array();
 		$ID = isset($_GET['ID'])?$_GET['ID']:"";
 		$return = models\companies::getInstance()->get($ID,array("render"=>"details"));
+
+
+
+
+
+		return $GLOBALS["output"]['data'] = $return;
+	}
+	function company_form(){
+		$return = array();
+		$ID = isset($_GET['ID'])?$_GET['ID']:"";
+		$return = models\companies::getInstance()->get($ID,array("render"=>"form"));
 
 
 

@@ -162,6 +162,7 @@ $f3->route('GET|POST /app/leads', 'controllers\app\leads->page');
 
 $f3->route('GET|POST /app/settings/users', 'controllers\app\settings_users->page');
 $f3->route('GET|POST /app/settings/individuals/fields', 'controllers\app\settings_individuals_fields->page');
+$f3->route('GET|POST /app/settings/companies/fields', 'controllers\app\settings_companies_fields->page');
 
 
 $f3->route('GET|POST /app/test', 'controllers\app\page_test->page');

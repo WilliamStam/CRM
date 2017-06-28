@@ -5,7 +5,7 @@ namespace controllers\app\save;
 use \models as models;
 use \resources as resources;
 
-class settings_individuals_fields extends _ {
+class settings_companies_fields extends _ {
 	function __construct() {
 		parent::__construct();
 
@@ -25,7 +25,7 @@ class settings_individuals_fields extends _ {
 
 		$content = $this->post("______content______");
 		if ($values['renderer']){
-			$values["individuals_".$values['renderer']] = $content;
+			$values["companies_".$values['renderer']] = $content;
 		}
 
 		if ($content==""){
@@ -66,7 +66,7 @@ class settings_individuals_fields extends _ {
 		}
 
 
-		$table = isset($_POST['______table______'])?$_POST['______table______']:"individuals";
+		$table = isset($_POST['______table______'])?$_POST['______table______']:"companies";
 
 
 		if (!isset($values['isGroup']))$values['isGroup']=0;

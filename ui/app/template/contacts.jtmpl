@@ -11,14 +11,21 @@
 						<table style="width:100%;">
 							<tr>
 								<td style="padding-right:10px;">
-									<a href="#" class="btn btn-primary2 btn-form-interaction" data-id="">
-										<i class="fa fa-plus"></i></a>
+									<a href="#" class="btn btn-primary2 form-<%= this.type %>" data-id="">
+										<i class="fa fa-plus"></i>
+									</a>
 								</td>
 								<td>
 									<div class="btn-group btn-group-justified ">
 
-										<a href="#" class="btn <% if(this.options.type=='1'){ %>btn-primary2<% } else { %>btn-default<% } %> btn-filter-type" data-value="1">Individual</a>
-										<a href="#" class="btn <% if(this.options.type=='2'){ %>btn-primary2<% } else { %>btn-default<% } %> btn-filter-type" data-value="2">Company</a>
+										<a href="#" class="btn <% if(this.options.type=='1'){ %>btn-primary2<% } else { %>btn-default<% } %> btn-filter-type" data-value="1">
+											<i class="fa fa-address-card-o" style="margin-left:-7px; margin-right:7px;"></i>
+											Individual
+										</a>
+										<a href="#" class="btn <% if(this.options.type=='2'){ %>btn-primary2<% } else { %>btn-default<% } %> btn-filter-type" data-value="2">
+											<i class="fa fa-building-o" style="margin-left:-7px; margin-right:7px;"></i>
+											Company
+										</a>
 
 									</div>
 								</td>

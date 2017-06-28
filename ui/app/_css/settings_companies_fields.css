@@ -1,0 +1,121 @@
+#right-area {
+  z-index: 1040; }
+  #right-area #side-bar-body {
+    overflow-y: auto; }
+  #right-area.fixed #side-bar {
+    position: static; }
+    #right-area.fixed #side-bar.navbar-offcanvas {
+      overflow: hidden; }
+  #right-area.fixed #side-bar-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+    margin: 0; }
+
+.offcanvas-stop-scrolling #right-area #side-bar.navbar-offcanvas {
+  overflow: hidden;
+  z-index: 999999; }
+
+#left-area .advert-list-item {
+  border-bottom: 1px solid #cccccc; }
+  #left-area .advert-list-item .advert-list-dates {
+    font-weight: bold; }
+
+#left-area .advert-record {
+  cursor: pointer; }
+
+#left-area.selected .advert-record {
+  opacity: 0.5;
+  filter: blur(2px); }
+  #left-area.selected .advert-record.active {
+    opacity: 1;
+    filter: blur(0); }
+
+.restrictions {
+  margin-top: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px dotted #cccccc; }
+
+.checkbox label {
+  display: block; }
+
+.input-group.searching {
+  border: 1px solid #34495e !important;
+  border-radius: 4px; }
+
+#list-items:empty {
+  color: #666666;
+  text-align: center;
+  padding: 40px; }
+  #list-items:empty:before {
+    content: 'No records found'; }
+
+#list-items .list-group-item {
+  padding: 5px 10px;
+  cursor: pointer; }
+
+#list-items .grid-preview {
+  margin-right: 100px;
+  margin-left: 10px; }
+  #list-items .grid-preview .content-area {
+    min-height: 15px;
+    border: 1px dotted #666; }
+
+#content-zone {
+  min-height: 100px; }
+  #content-zone:empty {
+    color: #666666;
+    text-align: center;
+    padding: 40px; }
+    #content-zone:empty:before {
+      content: 'Nothing here yet'; }
+  #content-zone .content-area {
+    padding: 5px;
+    border: 1px dotted #ccc;
+    min-height: 30px; }
+  #content-zone .item {
+    border: 1px solid #cccccc;
+    min-height: 20px;
+    position: relative;
+    margin-top: 3px;
+    margin-bottom: 3px; }
+    #content-zone .item .mask {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(250, 0, 0, 0.05);
+      cursor: pointer; }
+      #content-zone .item .mask:hover {
+        background: rgba(250, 0, 0, 0.1); }
+        #content-zone .item .mask:hover .mask-label {
+          display: block; }
+    #content-zone .item .mask-label {
+      display: none;
+      position: absolute;
+      bottom: 0px;
+      right: 0;
+      font-size: 8px;
+      text-shadow: 0 0 4px #fff; }
+  #content-zone .modal-dialog {
+    margin-top: 30px; }
+  #content-zone .footer-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(250, 250, 250, 0.5);
+    background: repeating-linear-gradient(45deg, rgba(250, 250, 250, 0.6), rgba(250, 250, 250, 0.6) 5px, rgba(250, 250, 250, 0.5) 5px, rgba(250, 250, 250, 0.5) 10px), linear-gradient(to bottom, rgba(250, 250, 250, 0.6), rgba(250, 250, 250, 0.6)); }
+
+#resource-item-form .panel {
+  margin-bottom: 0; }
+  #resource-item-form .panel .panel-body {
+    padding: 15px 4px; }
+  #resource-item-form .panel.has-alert .panel-body {
+    padding-bottom: 0; }
