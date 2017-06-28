@@ -23,6 +23,16 @@ class individuals extends _ {
 		return self::$instance;
 	}
 	function fields(){
+		$items = renderer::getInstance()->getItems($this->user['company'][$this->table.'_form']);
+		$data = array();
+		foreach ($this->fields as $item){
+			if (in_array($item['ID'],$items)){
+				$data[] =  $item;
+			}
+		}
+
+		$this->fields = $data;
+
 		return $this->fields;
 	}
 
@@ -263,7 +273,7 @@ class individuals extends _ {
 				"o"=>"numeric"			// order icon type
 			);
 
-		foreach($this->fields as $field){
+		foreach($this->fields() as $field){
 			$return[$field['key']] = array(
 				"c"=>"`".$field['key']."`",
 				"l"=>$field['name'],

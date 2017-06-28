@@ -41,7 +41,7 @@
 			<li>
 				<ul class="dropdown-menu-sub" id="options-columns">
 					<% for (var i in this.options.columns){ %>
-					<li class="checkbox checkbox-primary">
+					<li class="checkbox checkbox-info">
 						<input type="checkbox" name="columns[]" id="column-<%= i %>" value="<%= i %>" checked>
 						<label for="column-<%= i %>">
 							<%= this.options.columns[i].d %>
@@ -52,7 +52,7 @@
 
 					<% for (var i in this.setup.columns){ %>
 					<% if(typeof this.options.columns[i] ==='undefined'){ %>
-					<li class="checkbox checkbox-primary">
+					<li class="checkbox checkbox-info">
 						<input type="checkbox" name="columns[]" id="column-<%= i %>" value="<%= i %>">
 						<label for="column-<%= i %>">
 							<%= this.setup.columns[i].d %>
