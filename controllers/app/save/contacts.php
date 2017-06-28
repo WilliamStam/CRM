@@ -64,10 +64,12 @@ class contacts extends _ {
 			//"_deleted" => 0,
 			"data" => array(),
 		);
-
+		$items = models\renderer::getInstance()->getItems($this->user['company']['individuals_form']);
 		$data = array();
 		foreach (\models\individuals::getInstance()->fields() as $item){
-			$data[$item['key']] =  $this->post($item['name']);
+			if (in_array($item['ID'],$items)){
+				$data[$item['key']] =  $this->post($item['name']);
+			}
 		}
 		$values['data'] = $data;
 
