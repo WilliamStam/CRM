@@ -236,12 +236,12 @@ class companies extends _ {
 
 
 			if (isset($options['group_heading'])) $item['group_heading'] = $item[$options['group_heading']];
-			$item = fields::format_record(self::getInstance()->fields(),$item,$cfg);
+
 
 			$n[] = $item;
 		}
 
-
+		$n = fields::format_records(self::getInstance()->fields(),$n,$cfg);
 
 		
 	//	test_array($n);

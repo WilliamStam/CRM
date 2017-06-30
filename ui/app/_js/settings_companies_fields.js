@@ -209,6 +209,12 @@ function setupDrag(){
 		helper: "clone",
 		revert: "invalid"
 	});
+
+	$("#list-area").droppable({
+		drop: function(event, ui) {
+			ui.draggable.remove();
+		}
+	});
 }
 function cleanup(){
 	var $content = $("#content-zone-area").clone();

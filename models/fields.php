@@ -358,26 +358,37 @@ class fields extends _ {
 
 		return $sql;
 	}
-	static function format_record($fields,$item,$cfg){
+	static function format_records($fields,$data,$cfg){
 
-		foreach ($fields as $field){
-			if ($field['isLookup']){
-				$str = $item[$field['key']];
-				$rec = explode($cfg['field_lookup_separator']['records'],$str);
-				$item[$field['key']] = array();
-				foreach ($rec as $rec_item){
-					$rec_item = explode($cfg['field_lookup_separator']['idvalue'],$rec_item);
-					$item[$field['key']][] = array(
-						"ID"=>$rec_item[0],
-						"value"=>$rec_item[1]
-					);
+		$n = array();
+		foreach ($data as $item) {
+
+			foreach ($fields as $field){
+				if ($field['isLookup']){
+					$str = $item[$field['key']];
+					$rec = explode($cfg['field_lookup_separator']['records'],$str);
+					$item[$field['key']] = array();
+					foreach ($rec as $rec_item){
+						$rec_item = explode($cfg['field_lookup_separator']['idvalue'],$rec_item);
+						$item[$field['key']][] = array(
+							"ID"=>$rec_item[0],
+							"value"=>$rec_item[1]
+						);
+					}
+
+
 				}
-
-
 			}
+
+			$n[] = $item;
 		}
 
-		return $item;
+
+
+
+
+
+		return $n;
 
 	}
 

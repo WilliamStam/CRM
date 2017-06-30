@@ -64,7 +64,6 @@ $(document).ready(function() {
 			if (!result.errors) {
 				getData();
 			}
-
 		})
 	});
 	$(document).on("dblclick", "#content-zone-area .item ", function(e) {
@@ -83,13 +82,10 @@ $(document).ready(function() {
 		e.preventDefault();
 		var $this = $(this);
 		var id = $this.attr("data-id");
-
 		if (id){
 			$.bbq.pushState({"module":id});
 			getModule();
 		}
-
-
 	});
 
 
@@ -208,6 +204,12 @@ function setupDrag(){
 		connectToSortable: "#content-zone-area .content-area",
 		helper: "clone",
 		revert: "invalid"
+	});
+
+	$("#list-area").droppable({
+		drop: function(event, ui) {
+			ui.draggable.remove();
+		}
 	});
 }
 function cleanup(){
